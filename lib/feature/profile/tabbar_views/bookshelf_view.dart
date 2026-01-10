@@ -29,7 +29,7 @@ class _BookshelfView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return const BookCard();
                 },
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
                 itemCount: 2,
               ),
             ),
