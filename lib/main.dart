@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/profile_page.dart';
+import 'package:kitap_yuzu_profil/feature/profile/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
