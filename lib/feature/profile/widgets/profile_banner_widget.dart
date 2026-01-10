@@ -3,7 +3,7 @@ part of '../profile_page.dart';
 class _ProfileBannerWidget extends StatelessWidget {
   const _ProfileBannerWidget();
 
-  final currentUser = "sena gamze";
+  final currentUser = "sena gamze öz";
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,13 @@ class _ProfileBannerWidget extends StatelessWidget {
         children: [
           _buildAvatar(),
           SizedBox(height: AppDimens.s),
-          Text(currentUser),
+          Row(
+            mainAxisAlignment: .center,
+            children: [
+              Text(currentUser),
+              SizedBox(width: AppDimens.xs),
+            ],
+          ),
         ],
       ),
     );

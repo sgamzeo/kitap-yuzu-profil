@@ -3,11 +3,18 @@ import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
 
 part 'widgets/profile_banner_widget.dart';
+part './tabbar_views/bookshelf_view.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
-  final tabs = [Tab(text: 'Tab 1'), Tab(text: 'Tab 2'), Tab(text: 'Tab 3')];
+  final tabs = [
+    Tab(text: 'Kitaplık'),
+    Tab(text: 'Duvar'),
+    Tab(text: 'Alıntı'),
+    Tab(text: 'İncelemeler'),
+    Tab(text: 'Hedefler'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +51,11 @@ class ProfilePage extends StatelessWidget {
   TabBarView _buildTabBarView() {
     return const TabBarView(
       children: [
-        Center(child: Text('Tab 1 Content')),
-        Center(child: Text('Tab 2 Content')),
-        Center(child: Text('Tab 3 Content')),
+        _BookshelfView(),
+        Center(child: Text('Duvar')),
+        Center(child: Text('Alıntı')),
+        Center(child: Text('İnceleme')),
+        Center(child: Text('Hedefler')),
       ],
     );
   }
