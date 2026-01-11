@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kitap_yuzu_profil/core/components/custom_horizontal_gallery.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
+import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/bookshelf_view/bookshelf_view.dart';
 
 part 'widgets/profile_banner_widget.dart';
-part './tabbar_views/bookshelf_view.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
@@ -51,7 +52,7 @@ class ProfilePage extends StatelessWidget {
   TabBarView _buildTabBarView() {
     return const TabBarView(
       children: [
-        _BookshelfView(),
+        BookshelfView(),
         Center(child: Text('Duvar')),
         Center(child: Text('Alıntı')),
         Center(child: Text('İnceleme')),
