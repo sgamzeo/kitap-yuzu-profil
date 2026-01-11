@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/components/custom_horizontal_gallery.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/bookshelf_view/bookshelf_view.dart';
+import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/goal_view/goal_view.dart';
 
 part 'widgets/profile_banner_widget.dart';
 
@@ -56,7 +56,7 @@ class ProfilePage extends StatelessWidget {
         Center(child: Text('Duvar')),
         Center(child: Text('Alıntı')),
         Center(child: Text('İnceleme')),
-        Center(child: Text('Hedefler')),
+        GoalView(),
       ],
     );
   }

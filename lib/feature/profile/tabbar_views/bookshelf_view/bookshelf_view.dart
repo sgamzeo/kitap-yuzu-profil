@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_horizontal_gallery.dart';
+import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
 
 part './widgets/book_card_widget.dart';
