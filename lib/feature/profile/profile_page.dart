@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/bookshelf_view/bookshelf_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/goal_view/goal_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/quotation_view/quotation_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/wall_view.dart';
+import 'package:kitap_yuzu_profil/feature/profile/widgets/profile_statistics_box_widget.dart';
+import 'package:kitap_yuzu_profil/feature/profile/widgets/user_info_widget.dart';
 
 part 'widgets/profile_banner_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
+  final currentUser = "sena gamze öz";
 
   final tabs = [
     Tab(text: 'Kitaplık'),
@@ -29,13 +33,48 @@ class ProfilePage extends StatelessWidget {
           length: tabs.length,
           child: Column(
             children: [
-              _ProfileBannerWidget(),
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomCenter,
+                children: [
+                  _ProfileBannerWidget(),
+
+                  Positioned(
+                    top: 75,
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundColor: AppColors.black,
+                      child: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: AppColors.backgroundColor,
+                        child: Icon(Icons.person, size: AppDimens.xl),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: AppDimens.xl),
+              //user info
+              UserInfoWidget(currentUser: currentUser),
+              SizedBox(height: AppDimens.s),
+              CustomButton(text: 'Profili düzenle'),
+              SizedBox(height: AppDimens.s),
+              Divider(),
+              _buildStatistics(),
+              Divider(),
               _buildTabBar(),
               Expanded(child: _buildTabBarView()),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row _buildStatistics() {
+    return Row(
+      mainAxisAlignment: .spaceEvenly,
+      children: [ProfileStatisticsBox(), ProfileStatisticsBox()],
     );
   }
 

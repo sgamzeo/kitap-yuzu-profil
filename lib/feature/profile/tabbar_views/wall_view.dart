@@ -16,9 +16,12 @@ class WallView extends StatelessWidget {
             Text("Biyografi", style: TextStyle(fontSize: 16)),
             SizedBox(height: AppDimens.s),
             Text(
-              '''Merhaba! Ben Zeynep, nam-ı diğer Luna. 🌙 28 yaşındayım ve İstanbul'un kaosunda kelimelere sığınan bir metin yazarıyım. Çocukluğumda Narnia'ya açılan o dolabı aramakla başlayan serüvenim, şimdi distopik evrenlerde ve modern klasiklerin satır aralarında devam ediyor.
-Burada sadece "okudum bitti" dediğim kitapları değil; beni derinden sarsan, uykularımı kaçıran veya kahkahalara boğan hikayeleri paylaşıyorum. Fantastik kurgu, bilim kurgu ve büyülü gerçekçilik favori türlerim olsa da, iyi yazılmış her metne şans veririm.
-Hafta sonları genellikle Kadıköy'deki sahafları talan ederken veya üçüncü dalga kahvecilerde elimde bir kitapla (ve muhtemelen soğumuş bir latteyle) görülebilirim. Kitap kulübü buluşmalarını, spoiler vermeden yapılan derin analizleri ve yağmurlu gün okumalarını çok severim. Eğer sen de kitapların sadece kağıt yığını değil, başka hayatlara açılan kapılar olduğuna inanıyorsan doğru yerdesin. İş birlikleri ve öneriler için DM kutum her zaman açık! 📚''',
+              '''
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam malesuada ut quam id laoreet. 
+Pellentesque sed neque libero. Donec tincidunt justo id ligula vehicula, non eleifend ante finibus.
+Maecenas dapibus diam id lacus vestibulum, ac finibus augue pulvinar. Fusce nec ligula iaculis leo molestie finibus sed eu neque. 
+In nec mauris vel ipsum congue interdum. Mauris ac suscipit sapien, vitae lacinia mauris. Maecenas vel porta risus. Vivamus dapibus tortor enim, eu elementum odio porta eget. Aliquam laoreet consequat mi quis tincidunt. Cras eu massa iaculis, laoreet odio lobortis, convallis enim. 
+Praesent a ultricies ipsum. Maecenas nunc risus, lobortis id libero ut, dictum efficitur quam. Nullam quis diam a risus imperdiet rutrum sed vitae neque. Sed fringilla odio velit, eget tempor eros euismod in.''',
               style: const TextStyle(fontSize: 14),
               textAlign: .center,
             ),
