@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 
 class WallView extends StatelessWidget {
   const WallView({super.key});

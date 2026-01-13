@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 
 class FollowStatsBoxWidget extends StatelessWidget {
   const FollowStatsBoxWidget({super.key});

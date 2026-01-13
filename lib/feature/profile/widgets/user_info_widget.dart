@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/profile/widgets/follow_stats_box_widget.dart';
 
 class UserInfoWidget extends StatelessWidget {

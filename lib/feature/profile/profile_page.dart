@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_colors.dart';
-import 'package:kitap_yuzu_profil/core/constants/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/bookshelf_view/bookshelf_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/goal_view/goal_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/quotation_view/quotation_view.dart';
