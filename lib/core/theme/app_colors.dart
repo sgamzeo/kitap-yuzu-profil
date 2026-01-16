@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF6A5AE0);
-  static const Color backgroundColor = Color(0xFFF5F5F5);
+  static const Color primary = Color(0xFF385950);
+  static Color backgroundColor = wireframe6;
   static const Color transparent = Colors.transparent;
   static const Color unselectedLabelColor = Colors.black54;
 
@@ -16,5 +16,12 @@ class AppColors {
   static const gray200 = Color(0xFFE0E0E0);
   static const gray150 = Color(0xFFEBEBEB);
   static const gray100 = Color(0xFFF5F5F5);
-  static const white = Color(0xFFFFFFFF);
+  static const wireframeMetin1 = Color(0xFF000000);
+  static const wireframeMetin2 = Color(0xFF666666);
+  static const wireframe6 = Color(0xFFFFFFFF);
+  static const wireframe5 = Color(0xFFF2F2F2);
+  static const wireframe4 = Color(0xFFEAEAEA);
+  static const wireframe3 = Color(0xFFD6D6D6);
+  static const wireframe2 = Color(0xFFBFBFBF);
+  static const wireframe1 = Color(0xFF9F9F9F);
 }

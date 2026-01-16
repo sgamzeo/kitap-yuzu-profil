@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_theme.dart';
 import 'package:kitap_yuzu_profil/feature/profile/profile_page.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: AppTheme.light,
       home: ProfilePage(),
     );
   }

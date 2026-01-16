@@ -10,9 +10,17 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(AppColors.primary),
-        elevation: WidgetStatePropertyAll(0),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        ),
+
+        backgroundColor: WidgetStateProperty.all(AppColors.primary),
+        elevation: WidgetStateProperty.all(0),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
       ),
+
       child: Text(text, style: TextStyle(color: AppColors.backgroundColor)),
     );
   }

@@ -5,7 +5,7 @@ import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/bookshelf_view/bookshelf_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/goal_view/goal_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/quotation_view/quotation_view.dart';
-import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/wall_view.dart';
+import 'package:kitap_yuzu_profil/feature/profile/tabbar_views/wall_view/wall_view.dart';
 import 'package:kitap_yuzu_profil/feature/profile/widgets/profile_statistics_box_widget.dart';
 import 'package:kitap_yuzu_profil/feature/profile/widgets/user_info_widget.dart';
 
@@ -13,7 +13,6 @@ part 'widgets/profile_banner_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
-  final currentUser = "sena gamze öz";
 
   final tabs = [
     Tab(text: 'Kitaplık'),
@@ -55,7 +54,7 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: AppDimens.xl),
               //user info
-              UserInfoWidget(currentUser: currentUser),
+              UserInfoWidget(),
               SizedBox(height: AppDimens.s),
               CustomButton(text: 'Profili düzenle'),
               SizedBox(height: AppDimens.s),
