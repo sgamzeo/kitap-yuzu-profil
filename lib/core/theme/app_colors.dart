@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primary = Color(0xFF385950);
+  static Color secondary = Color(0xFFDFD3DD);
   static Color backgroundColor = wireframe6;
   static const Color transparent = Colors.transparent;
   static const Color unselectedLabelColor = Colors.black54;

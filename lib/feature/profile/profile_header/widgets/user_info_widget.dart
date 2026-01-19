@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/mock/profile_mock.dart';
-import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
-import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
-import 'package:kitap_yuzu_profil/feature/profile/widgets/follow_stats_box_widget.dart';
+part of '../profile_header.dart';
 
-class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget({super.key});
+class _UserInfoWidget extends StatelessWidget {
+  const _UserInfoWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +34,19 @@ class UserInfoWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: .center,
             children: [
-              FollowStatsBoxWidget(
+              _FollowStatsBoxWidget(
                 count: ProfileMock.followers,
                 label: 'Takipçiler',
               ),
               SizedBox(width: AppDimens.m),
-              FollowStatsBoxWidget(
+              _FollowStatsBoxWidget(
                 count: ProfileMock.following,
                 label: "Takip Ediliyor",
               ),
             ],
           ),
+          SizedBox(height: AppDimens.s),
+          CustomButton(text: 'Profili düzenle'),
         ],
       ),
     );

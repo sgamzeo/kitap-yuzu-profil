@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class AcqusitionCardWidget extends StatelessWidget {
-  const AcqusitionCardWidget({super.key});
+  final String title;
+  final String description;
+  final String avatar;
+  final String caption;
+  const AcqusitionCardWidget({
+    required this.title,
+    required this.description,
+    required this.caption,
+    required this.avatar,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +27,7 @@ class AcqusitionCardWidget extends StatelessWidget {
         padding: AppDimens.cardM,
         child: Row(
           children: [
-            CircleAvatar(),
+            CircleAvatar(radius: 28, backgroundImage: AssetImage(avatar)),
             SizedBox(width: AppDimens.m),
             Expanded(
               child: Column(
@@ -25,7 +36,7 @@ class AcqusitionCardWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Topluluk Lideri 👑",
+                        title,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: AppColors.primary,
                         ),
@@ -34,9 +45,10 @@ class AcqusitionCardWidget extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'Kurduğu kitap kulübü 100 üyeyi geçen ve aktif etkileşim sağlayan öncüler içindir.',
+                    description,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  Text('2023te kazanıldı.', style: TextStyle(fontSize: 11.1)),
+                  Text(caption, style: Theme.of(context).textTheme.small2),
                 ],
               ),
             ),

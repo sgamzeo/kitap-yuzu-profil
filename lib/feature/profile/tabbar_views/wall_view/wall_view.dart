@@ -48,7 +48,23 @@ Praesent a ultricies ipsum. Maecenas nunc risus, lobortis id libero ut, dictum e
             ),
             SizedBox(height: AppDimens.m),
 
-            AcqusitionCardWidget(),
+            AcqusitionCardWidget(
+              title: 'Topluluk Lideri 👑',
+              description:
+                  'Kurduğu kitap kulübü 100 üyeyi geçen ve aktif etkileşim sağlayan öncüler içindir.',
+
+              caption: '2023te kazanıldı.',
+              avatar: 'assets/crown_star_badge.png',
+            ),
+
+            AcqusitionCardWidget(
+              title: 'Okuma Canavarı👑',
+              description:
+                  "Yılda 50'den fazla kitap okuyan kullanıcılara verilir",
+
+              caption: 'Seviye 3 (Tamamlandı)',
+              avatar: 'assets/ribbon_coin_badge.png',
+            ),
           ],
         ),
       ),

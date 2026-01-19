@@ -7,7 +7,6 @@ class AppTheme {
     brightness: Brightness.light,
     useMaterial3: true,
 
-    // 👇 BURASI KRİTİK
     textTheme: GoogleFonts.interTextTheme(AppTextTheme.light),
   );
 }

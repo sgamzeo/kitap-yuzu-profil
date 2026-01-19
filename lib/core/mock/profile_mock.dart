@@ -12,5 +12,8 @@ class ProfileMock {
   static const int followers = 12500;
   static const int following = 340;
 
+  static const int booksRead = 687;
+  static const int quotationShared = 800;
+
   static const String editProfile = "Profili Düzenle";
 }
