@@ -46,7 +46,7 @@ class _UserInfoWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: AppDimens.s),
-          CustomButton(text: 'Profili düzenle'),
+          CustomButton(text: 'Profili düzenle', onPressed: () {}),
         ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 
 extension AppTextStyles on TextTheme {
   // Figma: Ag p italic / Auto
