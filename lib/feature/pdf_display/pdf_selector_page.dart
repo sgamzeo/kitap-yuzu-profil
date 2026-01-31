@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 
 class PdfSelectorPage extends StatelessWidget {
@@ -12,17 +13,11 @@ class PdfSelectorPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.reader);
-              },
-              child: const Text('Asset PDF Aç'),
-            ),
-            ElevatedButton(
+            CustomButton(
               onPressed: () {
                 Get.toNamed(AppRoutes.myLibrary);
               },
-              child: const Text('Library'),
+              text: 'Library',
             ),
           ],
         ),

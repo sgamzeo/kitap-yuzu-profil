@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/model/reader_appearance.dart';
@@ -13,10 +15,17 @@ class PdfReaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfReaderController c = Get.find<PdfReaderController>();
+    final args = Get.arguments as Map<String, dynamic>? ?? {};
+
+    final String pdfPath = args['pdfPath'];
+    final bool isAsset = args['isAsset'] ?? false;
+
+    // ✅ controller burada garanti altına alındı
+    c.setOpenedPdf(pdfPath);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PDF'),
+        title: Text(c.bookTitle.isEmpty ? 'PDF' : c.bookTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.text_fields),
@@ -31,39 +40,56 @@ class PdfReaderPage extends StatelessWidget {
               data: SfPdfViewerThemeData(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               ),
-              child: SfPdfViewer.asset(
-                'assets/pdfs/426122.pdf',
-                controller: c.helper.controller,
-
-                onDocumentLoaded: (_) {
-                  c.setOpenedPdf('assets/pdfs/426122.pdf');
-                  c.restoreLastPosition();
-                },
-
-                onPageChanged: c.onPageChanged,
-                onZoomLevelChanged: c.onZoomChanged,
-
-                onTextSelectionChanged: (details) {
-                  final text = details.selectedText;
-                  if (text == null || text.trim().isEmpty) {
-                    c.clearSelection();
-                    return;
-                  }
-                  c.onTextSelected(text);
-                },
-
-                scrollDirection:
-                    c.appearance.value.scrollMode == ReaderScrollMode.horizontal
-                    ? PdfScrollDirection.horizontal
-                    : PdfScrollDirection.vertical,
-              ),
+              child: isAsset
+                  ? SfPdfViewer.asset(
+                      pdfPath,
+                      controller: c.helper.controller!,
+                      onDocumentLoaded: (_) {
+                        Future.microtask(c.restoreLastPosition);
+                      },
+                      onPageChanged: c.onPageChanged,
+                      onZoomLevelChanged: c.onZoomChanged,
+                      onTextSelectionChanged: (details) {
+                        final text = details.selectedText;
+                        if (text == null || text.trim().isEmpty) {
+                          c.clearSelection();
+                          return;
+                        }
+                        c.onTextSelected(text);
+                      },
+                      scrollDirection:
+                          c.appearance.value.scrollMode ==
+                              ReaderScrollMode.horizontal
+                          ? PdfScrollDirection.horizontal
+                          : PdfScrollDirection.vertical,
+                    )
+                  : SfPdfViewer.file(
+                      File(pdfPath),
+                      controller: c.helper.controller!,
+                      onDocumentLoaded: (_) {
+                        Future.microtask(c.restoreLastPosition);
+                      },
+                      onPageChanged: c.onPageChanged,
+                      onZoomLevelChanged: c.onZoomChanged,
+                      onTextSelectionChanged: (details) {
+                        final text = details.selectedText;
+                        if (text == null || text.trim().isEmpty) {
+                          c.clearSelection();
+                          return;
+                        }
+                        c.onTextSelected(text);
+                      },
+                      scrollDirection:
+                          c.appearance.value.scrollMode ==
+                              ReaderScrollMode.horizontal
+                          ? PdfScrollDirection.horizontal
+                          : PdfScrollDirection.vertical,
+                    ),
             ),
           ),
-
           Obx(() {
             if (!c.hasSelection.value) return const SizedBox.shrink();
-
-            return Positioned(
+            return const Positioned(
               left: 0,
               right: 0,
               bottom: 0,

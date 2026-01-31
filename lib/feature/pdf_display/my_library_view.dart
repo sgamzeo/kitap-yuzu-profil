@@ -1,24 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/my_libray_controller.dart';
 
 class MyLibraryView extends StatelessWidget {
   const MyLibraryView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MyLibraryController());
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: const _LibraryAppBar(),
         body: Column(
-          children: const [
-            _LibraryTabBar(),
-            _ImportBanner(),
-            _LibraryFilterRow(),
-            Expanded(child: _LibraryContent()),
+          children: [
+            const _LibraryTabBar(),
+
+            // 👇 TAB'A GÖRE İÇERİK
+            Expanded(
+              child: TabBarView(
+                children: [
+                  const _MyBooksTab(), // Kitaplarım
+                  const _ImportedPdfsTab(), // Listelerim
+                ],
+              ),
+            ),
           ],
         ),
         floatingActionButton: const _AddButton(),
       ),
+    );
+  }
+}
+
+class _ImportedPdfsTab extends StatelessWidget {
+  const _ImportedPdfsTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<MyLibraryController>();
+
+    return Obx(() {
+      if (controller.importedPdfs.isEmpty) {
+        return const Center(child: Text('Henüz içe aktarılmış PDF yok'));
+      }
+
+      return ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: controller.importedPdfs.length,
+        itemBuilder: (_, index) {
+          final pdf = controller.importedPdfs[index];
+
+          return ListTile(
+            leading: const Icon(Icons.picture_as_pdf),
+            title: Text(pdf.name),
+            subtitle: Text(
+              '${pdf.importedAt.day}.${pdf.importedAt.month}.${pdf.importedAt.year}',
+            ),
+            onTap: () {
+              Get.toNamed(
+                AppRoutes.reader,
+                arguments: {'pdfPath': pdf.path, 'isAsset': pdf.isAsset},
+              );
+            },
+          );
+        },
+      );
+    });
+  }
+}
+
+class _AddButton extends StatelessWidget {
+  const _AddButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<MyLibraryController>();
+
+    return FloatingActionButton(
+      onPressed: controller.importPdf,
+      child: const Icon(Icons.add),
     );
   }
 }
@@ -54,6 +117,23 @@ class _LibraryTabBar extends StatelessWidget {
       tabs: [
         Tab(text: 'Kitaplarım'),
         Tab(text: 'Listelerim'),
+      ],
+    );
+  }
+}
+
+/* -------------------- TAB 1 : KİTAPLARIM -------------------- */
+
+class _MyBooksTab extends StatelessWidget {
+  const _MyBooksTab();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        _ImportBanner(),
+        _LibraryFilterRow(),
+        Expanded(child: _LibraryContent()),
       ],
     );
   }
@@ -215,11 +295,61 @@ class _BookCoverCard extends StatelessWidget {
   }
 }
 
-class _AddButton extends StatelessWidget {
-  const _AddButton();
+class _ImportedBooksTab extends StatelessWidget {
+  const _ImportedBooksTab();
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add));
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: const [
+        _ImportedPdfTile(title: 'Atomic Habits', subtitle: 'PDF • 320 sayfa'),
+        _ImportedPdfTile(title: 'Deep Work', subtitle: 'PDF • 280 sayfa'),
+      ],
+    );
+  }
+}
+
+class _ImportedPdfTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
+  const _ImportedPdfTile({required this.title, required this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 64,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: const Icon(Icons.picture_as_pdf),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.titleSmall),
+                const SizedBox(height: 4),
+                Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+        ],
+      ),
+    );
   }
 }

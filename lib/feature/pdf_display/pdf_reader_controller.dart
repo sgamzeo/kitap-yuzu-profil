@@ -36,7 +36,12 @@ class PdfReaderController extends GetxController {
   // =============================
 
   void setOpenedPdf(String path) {
+    if (openedPdfPath == path) return;
+
     openedPdfPath = path;
+
+    // 🔑 EN KRİTİK SATIR
+    helper.initController();
   }
 
   void onPageChanged(PdfPageChangedDetails details) {
@@ -50,19 +55,20 @@ class PdfReaderController extends GetxController {
   }
 
   void restoreLastPosition() {
-    if (openedPdfPath == null) return;
+    if (openedPdfPath == null || helper.controller == null) return;
 
     final page = box.read<int>('last_page_$openedPdfPath');
     final zoom = box.read<double>('last_zoom_$openedPdfPath');
 
-    if (page != null) {
-      helper.controller.jumpToPage(page);
-    }
-
-    if (zoom != null) {
-      helper.controller.zoomLevel = zoom;
-      appearance.value = appearance.value.copyWith(zoomLevel: zoom);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (page != null) {
+        helper.controller!.jumpToPage(page);
+      }
+      if (zoom != null) {
+        helper.controller!.zoomLevel = zoom;
+        appearance.value = appearance.value.copyWith(zoomLevel: zoom);
+      }
+    });
   }
 
   // =============================
@@ -111,10 +117,8 @@ class PdfReaderController extends GetxController {
 
   void setZoom(double zoom) {
     appearance.value = appearance.value.copyWith(zoomLevel: zoom);
-    helper.controller.zoomLevel = zoom;
+    helper.controller?.zoomLevel = zoom;
   }
 
-  void saveAppearance() {
-    box.write('reader_appearance', appearance.value.toJson());
-  }
+  void saveAppearance() {}
 }

@@ -25,7 +25,6 @@ class ReaderAppearance {
     );
   }
 
-  // 🔽 EKLENEN KISIM (STORAGE İÇİN)
   Map<String, dynamic> toJson() {
     return {
       'backgroundColor': backgroundColor.value,

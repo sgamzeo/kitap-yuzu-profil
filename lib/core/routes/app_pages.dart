@@ -1,6 +1,3 @@
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/add_quotation_view.dart';

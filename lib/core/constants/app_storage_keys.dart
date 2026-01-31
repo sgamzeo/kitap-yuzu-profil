@@ -7,4 +7,6 @@ class AppStorageKeys {
   static const pdfHighlights = 'pdf_highlights';
   static const quotes = 'quotes';
   static const userProfile = 'user_profile';
+
+  static const importedPdfs = 'imported_pdfs';
 }
