@@ -18,6 +18,7 @@ dependencies:
   get_storage: ^2.1.1
 
   uuid: ^4.5.2
+  syncfusion_flutter_core: ^32.1.25
 
 dev_dependencies:
   flutter_test:

@@ -3,40 +3,33 @@ import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
 import '../model/reader_appearance.dart';
 
-class ReaderAppearanceBottomSheet extends StatelessWidget {
+class ReaderAppearanceBottomSheet extends GetView<PdfReaderController> {
   const ReaderAppearanceBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.find<PdfReaderController>();
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-      child: Obx(
-        () => Column(
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+        child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Header(),
+            _Handle(),
+            const SizedBox(height: 12),
+
+            _Title(),
             const SizedBox(height: 20),
 
-            _SectionTitle('Arka Plan'),
-            _BackgroundSelector(),
-
+            _Card(title: 'Arka Plan', child: _BackgroundChips()),
             const SizedBox(height: 16),
-            _SectionTitle('Kaydırma'),
-            _ScrollModeSelector(),
 
+            _Card(title: 'Kaydırma', child: _ScrollModeSegment()),
             const SizedBox(height: 16),
-            _SectionTitle('Yakınlaştırma'),
-            Slider(
-              min: 1.0,
-              max: 3.0,
-              value: c.appearance.value.zoomLevel,
-              onChanged: c.setZoom,
-            ),
 
+            _Card(title: 'Yakınlaştırma', child: _ZoomSlider()),
             const SizedBox(height: 24),
+
             _SaveButton(),
           ],
         ),
@@ -45,58 +38,58 @@ class ReaderAppearanceBottomSheet extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
+class _Handle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 40,
-        height: 4,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade400,
-          borderRadius: BorderRadius.circular(2),
-        ),
+    return Container(
+      width: 36,
+      height: 4,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade400,
+        borderRadius: BorderRadius.circular(2),
       ),
     );
   }
 }
 
-class _SectionTitle extends StatelessWidget {
-  final String text;
-  const _SectionTitle(this.text);
-
+class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: Theme.of(context).textTheme.titleSmall);
-  }
-}
-
-class _Dropdown extends StatelessWidget {
-  final String value;
-  final List<String> items;
-  final ValueChanged<String> onChanged;
-
-  const _Dropdown({
-    required this.value,
-    required this.items,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      value: value,
-      items: items
-          .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-          .toList(),
-      onChanged: (v) {
-        if (v != null) onChanged(v);
-      },
+    return Text(
+      'Okuma Görünümü',
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 }
 
-class _BackgroundSelector extends StatelessWidget {
+class _Card extends StatelessWidget {
+  final String title;
+  final Widget child;
+
+  const _Card({required this.title, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.labelLarge),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+class _BackgroundChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.find<PdfReaderController>();
@@ -115,9 +108,10 @@ class _BackgroundSelector extends StatelessWidget {
 
         return GestureDetector(
           onTap: () => c.changeBackground(color),
-          child: Container(
-            margin: const EdgeInsets.only(right: 8),
-            padding: const EdgeInsets.all(2),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            margin: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: selected
@@ -125,7 +119,7 @@ class _BackgroundSelector extends StatelessWidget {
                   : null,
             ),
             child: CircleAvatar(
-              radius: 16,
+              radius: 18,
               backgroundColor: color,
               child: const Text('Aa', style: TextStyle(fontSize: 12)),
             ),
@@ -136,34 +130,58 @@ class _BackgroundSelector extends StatelessWidget {
   }
 }
 
-class _ScrollModeSelector extends StatelessWidget {
+class _ScrollModeSegment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.find<PdfReaderController>();
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: ReaderScrollMode.values.map((mode) {
         final selected = c.appearance.value.scrollMode == mode;
 
-        return GestureDetector(
-          onTap: () => c.changeScrollMode(mode),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: selected ? Colors.black : Colors.grey),
-            ),
-            child: Icon(
-              mode == ReaderScrollMode.vertical
-                  ? Icons.view_agenda
-                  : mode == ReaderScrollMode.horizontal
-                  ? Icons.view_carousel
-                  : Icons.menu_book,
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => c.changeScrollMode(mode),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: selected ? Colors.black : Colors.transparent,
+                border: Border.all(color: Colors.black),
+              ),
+              child: Icon(
+                mode == ReaderScrollMode.vertical
+                    ? Icons.view_agenda
+                    : Icons.view_carousel,
+                color: selected ? Colors.white : Colors.black,
+              ),
             ),
           ),
         );
       }).toList(),
+    );
+  }
+}
+
+class _ZoomSlider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final c = Get.find<PdfReaderController>();
+
+    return Row(
+      children: [
+        const Icon(Icons.zoom_out),
+        Expanded(
+          child: Slider(
+            min: 1.0,
+            max: 3.0,
+            value: c.appearance.value.zoomLevel,
+            onChanged: c.setZoom,
+          ),
+        ),
+        const Icon(Icons.zoom_in),
+      ],
     );
   }
 }
@@ -176,6 +194,12 @@ class _SaveButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
         onPressed: () {
           c.saveAppearance();
           Get.back();

@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
 
 class AddQuotationView extends StatelessWidget {
   const AddQuotationView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    final bookController = TextEditingController(
+      text: args?['bookTitle'] ?? '',
+    );
+
+    final quoteController = TextEditingController(text: args?['quote'] ?? '');
+
+    final noteController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -37,14 +49,19 @@ class AddQuotationView extends StatelessWidget {
               child: const Icon(Icons.add),
             ),
             const SizedBox(height: 20),
-            _BookPicker(),
+
+            _BookPicker(controller: bookController),
             const SizedBox(height: 20),
-            _QuoteInput(),
+
+            _QuoteInput(controller: quoteController),
             const SizedBox(height: 20),
-            _PersonalNote(),
+
+            _PersonalNote(controller: noteController),
             const SizedBox(height: 20),
+
             _CommunityShare(),
             const SizedBox(height: 30),
+
             _ShareButton(),
           ],
         ),
@@ -54,10 +71,12 @@ class AddQuotationView extends StatelessWidget {
 }
 
 class _BookPicker extends StatelessWidget {
+  final TextEditingController controller;
+  const _BookPicker({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Column(
@@ -66,6 +85,7 @@ class _BookPicker extends StatelessWidget {
               const Text('Hangi Kitap *'),
               const SizedBox(height: 6),
               TextField(
+                controller: controller,
                 maxLength: 50,
                 decoration: InputDecoration(
                   counterText: '0/50',
@@ -85,6 +105,9 @@ class _BookPicker extends StatelessWidget {
 }
 
 class _QuoteInput extends StatelessWidget {
+  final TextEditingController controller;
+  const _QuoteInput({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,6 +116,7 @@ class _QuoteInput extends StatelessWidget {
         const Text('Alıntı *'),
         const SizedBox(height: 6),
         TextField(
+          controller: controller,
           maxLines: 4,
           maxLength: 100,
           decoration: InputDecoration(
@@ -108,6 +132,9 @@ class _QuoteInput extends StatelessWidget {
 }
 
 class _PersonalNote extends StatelessWidget {
+  final TextEditingController controller;
+  const _PersonalNote({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -122,6 +149,7 @@ class _PersonalNote extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         TextField(
+          controller: controller,
           maxLines: 3,
           decoration: InputDecoration(
             filled: true,
