@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 
 class PdfSelectorPage extends StatelessWidget {
   const PdfSelectorPage({super.key});
@@ -9,12 +10,21 @@ class PdfSelectorPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('PDF Test')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // sadece reader'a git
-            Get.toNamed('/reader');
-          },
-          child: const Text('Asset PDF Aç'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.reader);
+              },
+              child: const Text('Asset PDF Aç'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.myLibrary);
+              },
+              child: const Text('Library'),
+            ),
+          ],
         ),
       ),
     );

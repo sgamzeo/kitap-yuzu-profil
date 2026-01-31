@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/model/reader_appearance.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/widgets/reader_appeareance_bottom_sheet.dart';
 import 'pdf_reader_controller.dart';
 
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/widgets/reader_appeareance_bottom_sheet.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfReaderPage extends StatelessWidget {
@@ -12,22 +20,33 @@ class PdfReaderPage extends StatelessWidget {
     final PdfReaderController c = Get.find<PdfReaderController>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('PDF')),
+      appBar: AppBar(
+        title: const Text('PDF'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.text_fields),
+            onPressed: () => _openReaderAppearanceSheet(context),
+          ),
+        ],
+      ),
       body: Stack(
         children: [
-          SfPdfViewer.asset(
-            'assets/pdfs/426122.pdf',
-            controller: c.pdfController,
-            onTextSelectionChanged: c.onTextSelectionChanged,
-            onPageChanged: c.onPageChanged,
-            onZoomLevelChanged: c.onZoomChanged,
+          Obx(
+            () => Container(
+              color: c.appearance.value.backgroundColor,
+              child: SfPdfViewer.asset(
+                'assets/pdfs/426122.pdf',
+                controller: c.pdfController,
+                onTextSelectionChanged: c.onTextSelectionChanged,
+                scrollDirection:
+                    c.appearance.value.scrollMode == ReaderScrollMode.horizontal
+                    ? PdfScrollDirection.horizontal
+                    : PdfScrollDirection.vertical,
+              ),
+            ),
           ),
-
           Obx(() {
-            if (!c.hasSelection.value) {
-              return const SizedBox.shrink();
-            }
-
+            if (!c.hasSelection.value) return const SizedBox.shrink();
             return Positioned(
               left: 0,
               right: 0,
@@ -37,6 +56,17 @@ class PdfReaderPage extends StatelessWidget {
           }),
         ],
       ),
+    );
+  }
+
+  void _openReaderAppearanceSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => const ReaderAppearanceBottomSheet(),
     );
   }
 }
@@ -56,12 +86,10 @@ class _HighlightMenu extends StatelessWidget {
           _dot(Colors.yellow),
           _dot(Colors.green),
           _dot(Colors.pink),
-
           IconButton(
             icon: const Icon(Icons.format_quote, color: Colors.white),
             onPressed: c.sendToQuotePage,
           ),
-
           IconButton(
             icon: const Icon(Icons.copy, color: Colors.white),
             onPressed: c.copySelectedText,
@@ -82,48 +110,3 @@ class _HighlightMenu extends StatelessWidget {
     );
   }
 }
-
-// class AddQuotationView extends StatelessWidget {
-//   const AddQuotationView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = Get.find<QuoteController>();
-
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Alıntılar')),
-//       body: Obx(() {
-//         if (controller.quotes.isEmpty) {
-//           return const Center(child: Text('Henüz alıntı yok'));
-//         }
-
-//         return ListView.builder(
-//           itemCount: controller.quotes.length,
-//           itemBuilder: (_, i) {
-//             final q = controller.quotes[i];
-
-//             return Container(
-//               margin: const EdgeInsets.all(12),
-//               padding: const EdgeInsets.all(16),
-//               decoration: BoxDecoration(
-//                 color: q.color.withOpacity(0.15),
-//                 borderRadius: BorderRadius.circular(12),
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(q.text, style: const TextStyle(fontSize: 16)),
-//                   const SizedBox(height: 12),
-//                   Text(
-//                     q.source,
-//                     style: const TextStyle(fontSize: 12, color: Colors.grey),
-//                   ),
-//                 ],
-//               ),
-//             );
-//           },
-//         );
-//       }),
-//     );
-//   }
-// }

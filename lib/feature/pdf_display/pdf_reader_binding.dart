@@ -7,10 +7,3 @@ class PdfReaderBinding extends Bindings {
     Get.lazyPut<PdfReaderController>(() => PdfReaderController());
   }
 }
-
-class QuoteBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.put(QuoteController());
-  }
-}
