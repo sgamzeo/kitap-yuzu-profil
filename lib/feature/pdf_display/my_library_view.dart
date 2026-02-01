@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/my_libray_controller.dart';
 
 class MyLibraryView extends StatelessWidget {
@@ -18,7 +20,6 @@ class MyLibraryView extends StatelessWidget {
           children: [
             const _LibraryTabBar(),
 
-            // 👇 TAB'A GÖRE İÇERİK
             Expanded(
               child: TabBarView(
                 children: [
@@ -150,7 +151,7 @@ class _ImportBanner extends StatelessWidget {
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: const Color(0xFFF5F6F2),
+          color: AppColors.green5,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -178,12 +179,18 @@ class _LibraryFilterRow extends StatelessWidget {
       child: Row(
         children: [
           OutlinedButton.icon(
+            style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all(const Color(0xFF8A8A8A)),
+            ),
             onPressed: () {},
             icon: const Icon(Icons.sort),
             label: const Text('Sırala'),
           ),
           const SizedBox(width: 12),
           OutlinedButton.icon(
+            style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all(const Color(0xFF8A8A8A)),
+            ),
             onPressed: () {},
             icon: const Icon(Icons.search),
             label: const Text('Ara'),
@@ -232,123 +239,55 @@ class _LibrarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Text(title, style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(width: 6),
-                Icon(icon, size: 16),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.more_horiz),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(subtitle),
-          ),
-          const SizedBox(height: 12),
-          const _HorizontalBookList(),
-        ],
-      ),
-    );
-  }
-}
-
-class _HorizontalBookList extends StatelessWidget {
-  const _HorizontalBookList();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 130,
-      child: ListView.separated(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, __) => const _BookCoverCard(),
-        separatorBuilder: (_, __) => const SizedBox(width: 12),
-        itemCount: 5,
-      ),
-    );
-  }
-}
-
-class _BookCoverCard extends StatelessWidget {
-  const _BookCoverCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
-  }
-}
-
-class _ImportedBooksTab extends StatelessWidget {
-  const _ImportedBooksTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: const [
-        _ImportedPdfTile(title: 'Atomic Habits', subtitle: 'PDF • 320 sayfa'),
-        _ImportedPdfTile(title: 'Deep Work', subtitle: 'PDF • 280 sayfa'),
-      ],
-    );
-  }
-}
-
-class _ImportedPdfTile extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  const _ImportedPdfTile({required this.title, required this.subtitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 64,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(6),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 87,
+              height: 87,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: AppColors.yellow3,
+              ),
+              child: Image.asset(
+                'assets/atomic_habits.png',
+                width: 75,
+                height: 75,
+                fit: BoxFit.none,
+              ),
             ),
-            child: const Icon(Icons.picture_as_pdf),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: Theme.of(context).textTheme.titleSmall),
-                const SizedBox(height: 4),
-                Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
-              ],
+
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(title, style: Theme.of(context).textTheme.bodyLarge),
+                      const SizedBox(width: 6),
+                      Icon(icon, color: Color(0xFF8A8A8A), size: 16),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.more_horiz),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: Color(0xFF8A8A8A)),
+                  ),
+                ],
+              ),
             ),
-          ),
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-        ],
+          ],
+        ),
       ),
     );
   }
