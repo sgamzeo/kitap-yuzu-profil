@@ -3,12 +3,15 @@ import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
+
   final VoidCallback onPressed;
+  final Color? textColor;
   final Color? color;
   final double? radius;
   const CustomButton({
     required this.text,
     required this.onPressed,
+    this.textColor,
     this.color,
     this.radius,
     super.key,
@@ -19,11 +22,14 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        side: WidgetStateProperty.all(
+          BorderSide(color: AppColors.primary, width: 1),
+        ),
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         ),
 
-        backgroundColor: WidgetStateProperty.all(color ?? AppColors.primary),
+        backgroundColor: WidgetStateProperty.all(color ?? AppColors.primary), //
         elevation: WidgetStateProperty.all(0),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
@@ -32,7 +38,10 @@ class CustomButton extends StatelessWidget {
         ),
       ),
 
-      child: Text(text, style: TextStyle(color: AppColors.backgroundColor)),
+      child: Text(
+        text,
+        style: TextStyle(color: textColor ?? AppColors.backgroundColor),
+      ),
     );
   }
 }

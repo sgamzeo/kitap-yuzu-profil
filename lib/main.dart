@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_pages.dart';
-import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_theme.dart';
 
 void main() async {
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      initialRoute: AppRoutes.home,
+      initialRoute: AppPages.initial,
       getPages: AppPages.pages,
     );
   }
