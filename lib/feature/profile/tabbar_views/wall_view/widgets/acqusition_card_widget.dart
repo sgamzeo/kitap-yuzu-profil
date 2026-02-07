@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
-import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class AcqusitionCardWidget extends StatelessWidget {
   final String title;
@@ -48,7 +47,7 @@ class AcqusitionCardWidget extends StatelessWidget {
                     description,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  Text(caption, style: Theme.of(context).textTheme.small2),
+                  Text(caption, style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
             ),

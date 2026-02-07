@@ -1,41 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_text_field.dart';
+import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 import 'package:kitap_yuzu_profil/feature/auth/auth_base_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/widgets/%20auth_header_widget.dart';
 
-class ResetPasswordView extends StatelessWidget {
-  const ResetPasswordView({super.key});
+class ForgotPasswordView extends StatelessWidget {
+  const ForgotPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      showBack: false,
       bottom: CustomButton(
-        text: 'Şifreyi Güncelle',
+        text: 'Bağlantı Gönder',
         onPressed: () {
-          // Get.offAllNamed();
+          Get.toNamed(AppRoutes.resetPassword);
         },
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AuthHeader(title: 'Yeni Şifre Oluştur'),
-          const SizedBox(height: 40),
-          const CustomTextField(label: 'Yeni Şifre', obscureText: true),
+          const AuthHeader(title: 'Şifremi Unuttum'),
+          const SizedBox(height: 44),
+
+          const CustomTextField(label: 'E-posta'),
           SizedBox(height: AppDimens.xs),
           Text(
-            'E- posta adresinize şifre sıfırlama maili gönderilecektir',
+            'E-posta adresinize şifre sıfırlama maili gönderilecektir',
             style: Theme.of(
               context,
             ).textTheme.osS2.copyWith(color: AppColors.tertiary),
           ),
-          const SizedBox(height: 10),
-
-          const CustomTextField(label: 'Yeni Şifre Tekrar', obscureText: true),
         ],
       ),
     );

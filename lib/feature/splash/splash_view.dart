@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -10,24 +14,32 @@ class SplashView extends StatelessWidget {
     Get.put(SplashController());
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/logo.png', width: 120),
-            const SizedBox(height: 16),
-            const Text(
-              'Kitap Yüzü',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              '''Okuduklarınla Sadece Sen Değil,
-Herkes Konuşsun''',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14),
-            ),
-          ],
+      body: Padding(
+        padding: AppDimens.defaultPagePadding,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                AssetConstants.kitapYuzuLogo,
+                height: AppDimens.splashLogoSize,
+              ),
+              SizedBox(height: 37), // TODO: not divisible by 8
+              Text(
+                'Kitap Yüzü',
+                style: Theme.of(
+                  context,
+                ).textTheme.osH1.copyWith(color: AppColors.primary),
+              ),
+              SizedBox(height: AppDimens.m),
+              Text(
+                '''Okuduklarınla Sadece Sen Değil,
+      Herkes Konuşsun''',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.osH6,
+              ),
+            ],
+          ),
         ),
       ),
     );

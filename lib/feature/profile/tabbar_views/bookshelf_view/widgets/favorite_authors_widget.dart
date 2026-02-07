@@ -50,7 +50,7 @@ class _FavoriteAuthors extends StatelessWidget {
           const Text('Lorem Ipsum'),
         ],
       ),
-      separatorBuilder: (_, _) => const SizedBox(height: AppDimens.xs),
+      separatorBuilder: (_, _) => SizedBox(height: AppDimens.xs),
       itemCount: 10,
     );
   }

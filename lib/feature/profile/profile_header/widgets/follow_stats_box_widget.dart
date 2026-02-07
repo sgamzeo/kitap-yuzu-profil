@@ -12,7 +12,7 @@ class _FollowStatsBoxWidget extends StatelessWidget {
         children: [
           TextSpan(
             text: '$count',
-            style: Theme.of(context).textTheme.small2.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: AppColors.wireframeMetin1,
               fontWeight: .w600,
             ),
@@ -22,7 +22,7 @@ class _FollowStatsBoxWidget extends StatelessWidget {
             text: label,
             style: Theme.of(
               context,
-            ).textTheme.small2.copyWith(color: AppColors.wireframeMetin2),
+            ).textTheme.bodySmall?.copyWith(color: AppColors.wireframeMetin2),
           ),
         ],
       ),

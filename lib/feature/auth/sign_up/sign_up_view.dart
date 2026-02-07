@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,116 +6,98 @@ import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
+
+import 'package:kitap_yuzu_profil/feature/auth/auth_base_view.dart';
+import 'package:kitap_yuzu_profil/feature/auth/widgets/%20auth_header_widget.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(leading: const BackButton(), elevation: 0),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            Center(
-              child: Column(
-                children: const [
-                  Text(
-                    'Kitap Yüzü',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    'Kayıt Ol',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40),
-            const Text('Mail ya da kullanıcı adı'),
-            const SizedBox(height: 6),
-            const CustomTextField(),
-            const SizedBox(height: 20),
-            const Text('Şifre'),
-            const SizedBox(height: 6),
-            const CustomTextField(obscureText: true),
-            const SizedBox(height: 14),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Checkbox(
-                  value: false,
-                  onChanged: (_) {},
-                  shape: const CircleBorder(),
-                ),
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(fontSize: 12, color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: 'Kullanım Şartları',
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primary,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              _showTermsSheet();
-                            },
-                        ),
-                        const TextSpan(text: ' ve '),
-                        TextSpan(
-                          text: 'Gizlilik Sözleşmesini',
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primary,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              _showPrivacySheet();
-                            },
-                        ),
-                        const TextSpan(text: ' okudum.'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: CustomButton(
-                onPressed: () {},
-                text: 'Kayıt Ol',
-                radius: 14,
-              ),
-            ),
+    return AuthScaffold(
+      bottom: CustomButton(text: 'Kayıt Ol', onPressed: () {}),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const AuthHeader(title: 'Kayıt Ol'),
+          const SizedBox(height: 40),
 
-            const SizedBox(height: 24),
-          ],
+          const SizedBox(height: 6),
+          const CustomTextField(label: "Mail ya da kullanıcı adı"),
+
+          const SizedBox(height: 20),
+
+          const CustomTextField(label: "Şifre", obscureText: true),
+
+          const SizedBox(height: 16),
+
+          _AgreeTermsAndConditions(context),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _AgreeTermsAndConditions(BuildContext context) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Checkbox(
+        value: false,
+        onChanged: (_) {},
+        shape: const CircleBorder(),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+      ),
+      Expanded(
+        child: AutoSizeText.rich(
+          TextSpan(
+            style: Theme.of(
+              context,
+            ).textTheme.osSmall.copyWith(color: AppColors.tertiary),
+            children: [
+              TextSpan(
+                text: 'Kullanım Şartları',
+                style: const TextStyle(
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primary,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = _showTermsSheet,
+              ),
+              const TextSpan(text: ' ve '),
+              TextSpan(
+                text: 'Gizlilik Sözleşmesini',
+                style: const TextStyle(
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primary,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = _showPrivacySheet,
+              ),
+              const TextSpan(text: ' okudum.'),
+            ],
+          ),
+          maxLines: 1,
+          minFontSize: 9,
+          overflow: TextOverflow.visible,
         ),
       ),
-    );
-  }
+    ],
+  );
+}
 
-  void _showTermsSheet() {
-    Get.bottomSheet(
-      const _TermsBottomSheet(title: 'Kullanım Şartları'),
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-    );
-  }
+void _showTermsSheet() {
+  Get.bottomSheet(
+    const _TermsBottomSheet(title: 'Kullanım Şartları'),
+    isScrollControlled: true,
+    backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+  );
 }
 
 void _showPrivacySheet() {
