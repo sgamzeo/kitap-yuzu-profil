@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
+import 'package:kitap_yuzu_profil/core/components/custom_text_button.dart';
 import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
@@ -53,7 +54,7 @@ class OnboardingView extends StatelessWidget {
                     height: 48,
                     child: CustomButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.logIn);
+                        Get.toNamed(AppRoutes.signIn);
                       },
                       text: 'Giriş Yap',
                       textStyle: Theme.of(
@@ -75,12 +76,11 @@ class OnboardingView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: AppDimens.m),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Misafir Olarak Dene',
-                      style: Theme.of(context).textTheme.osP,
-                    ),
+                  CustomTextButton(
+                    text: 'Misafir olarak Dene',
+                    onPressed: () {
+                      Get.offNamed(AppRoutes.myLibrary);
+                    },
                   ),
                 ],
               ),

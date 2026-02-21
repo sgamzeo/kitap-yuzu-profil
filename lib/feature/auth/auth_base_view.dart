@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
-import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
-import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 
 class AuthScaffold extends StatelessWidget {
   final Widget child;
@@ -31,7 +29,7 @@ class AuthScaffold extends StatelessWidget {
           : null,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: AppDimens.defaultPagePadding,
           child: Column(
             children: [
               Expanded(child: child),
