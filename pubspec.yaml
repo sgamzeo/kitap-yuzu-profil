@@ -37,6 +37,8 @@ flutter:
   assets:
     - assets/
     - assets/pdfs/
+    - assets/icons/
+
 
 
  
