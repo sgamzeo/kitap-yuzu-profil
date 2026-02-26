@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class LibraryContent extends StatelessWidget {
-  const LibraryContent();
+  const LibraryContent({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.only(top: 16),
-      children: const [
+      children: [
         _LibrarySection(
           title: 'Okuyorum',
           subtitle: '8 Kitap',
-          icon: Icons.remove_red_eye_outlined,
+          icon: IconConstants.open,
         ),
         _LibrarySection(
           title: 'Okuduklarım',
           subtitle: '8 Kitap',
-          icon: Icons.nights_stay_outlined,
+          icon: IconConstants.close,
         ),
       ],
     );
@@ -27,7 +30,7 @@ class LibraryContent extends StatelessWidget {
 class _LibrarySection extends StatelessWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
+  final String icon;
 
   const _LibrarySection({
     required this.title,
@@ -66,12 +69,24 @@ class _LibrarySection extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(title, style: Theme.of(context).textTheme.bodyLarge),
+                      Text(
+                        title,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.osP.copyWith(color: AppColors.black),
+                      ),
                       const SizedBox(width: 6),
-                      Icon(icon, color: Color(0xFF8A8A8A), size: 16),
+                      SvgPicture.asset(
+                        icon,
+                        color: AppColors.mutedText,
+                        height: 16,
+                      ),
                       const Spacer(),
                       IconButton(
-                        icon: const Icon(Icons.more_horiz),
+                        icon: Icon(
+                          Icons.more_horiz,
+                          color: AppColors.mutedText,
+                        ),
                         onPressed: () {},
                       ),
                     ],
@@ -81,7 +96,7 @@ class _LibrarySection extends StatelessWidget {
                     subtitle,
                     style: Theme.of(
                       context,
-                    ).textTheme.bodySmall?.copyWith(color: Color(0xFF8A8A8A)),
+                    ).textTheme.osS.copyWith(color: AppColors.mutedText),
                   ),
                 ],
               ),

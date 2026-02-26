@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/my_library_binding.dart';
 import 'package:kitap_yuzu_profil/feature/onboarding/onboarding_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/forgot_password/forgot_password_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/reset_password/reset_password_view.dart';
@@ -7,7 +8,7 @@ import 'package:kitap_yuzu_profil/feature/auth/sign_in/sign_in_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/sign_in/sign_in_view_controller.dart';
 import 'package:kitap_yuzu_profil/feature/auth/sign_up/sign_up_view.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/add_quotation_view.dart';
-import 'package:kitap_yuzu_profil/feature/library/my_library_view.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/my_library_view.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader.page.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_binding.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_selector_page.dart';
@@ -42,6 +43,10 @@ class AppPages {
       binding: PdfReaderBinding(),
     ),
     GetPage(name: AppRoutes.addQquotation, page: () => AddQuotationView()),
-    GetPage(name: AppRoutes.myLibrary, page: () => MyLibraryView()),
+    GetPage(
+      name: AppRoutes.myLibrary,
+      page: () => MyLibraryView(),
+      binding: MyLibraryBinding(),
+    ),
   ];
 }

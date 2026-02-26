@@ -5,6 +5,8 @@ class AssetConstants {
 
 class IconConstants {
   static const String back = 'assets/icons/back.svg';
+  static const String down = 'assets/icons/down.svg';
+
   static const String options = 'assets/icons/options.svg';
   static const String export = 'assets/icons/export.svg';
   static const String importBoldDuoTone =
@@ -12,4 +14,13 @@ class IconConstants {
   static const String open = 'assets/icons/eye_open.svg';
   static const String close = 'assets/icons/eye_closed.svg';
   static const String search = 'assets/icons/search.svg';
+  static const String save = 'assets/icons/search.svg';
+}
+
+class Mock {
+  static const String narnia = 'assets/mock/narnia.jpg';
+  static const String stuporeTremori = 'assets/mock/stupore_tremori.jpg';
+  static const String dorianGray = 'assets/mock/the_picture_of_dorian_gray.jpg';
+  static const String notGivingFck =
+      'assets/mock/the_subtle_art_of_not_giving_fuck.jpg';
 }

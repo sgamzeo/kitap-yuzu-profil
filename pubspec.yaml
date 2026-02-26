@@ -38,6 +38,8 @@ flutter:
     - assets/
     - assets/pdfs/
     - assets/icons/
+    - assets/mock/
+
 
 
 

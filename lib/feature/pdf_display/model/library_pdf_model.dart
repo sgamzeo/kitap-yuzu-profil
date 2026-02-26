@@ -1,5 +1,3 @@
-import 'package:get_storage/get_storage.dart';
-
 class LibraryPdf {
   final String id;
   final String path;

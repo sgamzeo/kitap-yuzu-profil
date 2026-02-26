@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 
 class LibraryAppBar extends StatelessWidget implements PreferredSizeWidget {
   const LibraryAppBar({super.key});
@@ -10,10 +12,13 @@ class LibraryAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: const BackButton(),
       actions: [
         IconButton(
-          icon: const Icon(Icons.ios_share_outlined),
+          icon: SvgPicture.asset(IconConstants.export),
           onPressed: () {},
         ),
-        IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+        IconButton(
+          icon: SvgPicture.asset(IconConstants.options),
+          onPressed: () {},
+        ),
       ],
     );
   }

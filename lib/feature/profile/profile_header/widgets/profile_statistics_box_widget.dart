@@ -3,11 +3,7 @@ part of '../profile_header.dart';
 class _ProfileStatisticsBox extends StatelessWidget {
   final int count;
   final String label;
-  const _ProfileStatisticsBox({
-    required this.count,
-    required this.label,
-    super.key,
-  });
+  const _ProfileStatisticsBox({required this.count, required this.label});
 
   @override
   Widget build(BuildContext context) {
