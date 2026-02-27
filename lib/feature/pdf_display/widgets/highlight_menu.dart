@@ -35,7 +35,7 @@ class HighlightMenu extends GetView<PdfReaderController> {
 
   Widget _dot(Color color) {
     return GestureDetector(
-      // onTap: () => controller.changeColor(color),
+      onTap: () => controller.addHighlight(color),
       child: CircleAvatar(radius: 10, backgroundColor: color),
     );
   }

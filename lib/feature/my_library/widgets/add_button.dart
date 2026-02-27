@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/my_libray_controller.dart';
+import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<MyLibraryController>();
+    final controller = Get.find<PdfReaderController>();
 
     return FloatingActionButton(
       onPressed: () {
@@ -30,7 +31,7 @@ class AddButton extends StatelessWidget {
                       title: "PDF İçe Aktar",
                       onTap: () {
                         Get.back();
-                        controller.importPdf();
+                        // controller.importPdf();
                       },
                     ),
                     _MenuItem(
@@ -39,6 +40,21 @@ class AddButton extends StatelessWidget {
                       onTap: () {
                         Get.back();
                         Get.to(() => const AddBookList());
+                      },
+                    ),
+                    _MenuItem(
+                      icon: Icons.science,
+                      title: "Custom PDF Text Test (Asset)",
+                      onTap: () {
+                        Get.back();
+
+                        Get.toNamed(
+                          AppRoutes.pdfTextTest,
+                          arguments: {
+                            'pdfPath': 'assets/pdfs/426122.pdf',
+                            'isAsset': true,
+                          },
+                        );
                       },
                     ),
                   ],

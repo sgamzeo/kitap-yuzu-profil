@@ -5,9 +5,9 @@ import 'pdf_reader_controller.dart';
 class PdfReaderBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PdfReaderController>(
-      () => PdfReaderController(SyncfusionPdfHelper()),
-      fenix: false,
-    );
+    // Get.lazyPut<PdfReaderController>(
+    //   () => PdfReaderController(SyncfusionPdfHelper()),
+    //   fenix: false,
+    // );
   }
 }

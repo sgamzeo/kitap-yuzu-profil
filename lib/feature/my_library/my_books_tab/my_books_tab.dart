@@ -5,9 +5,8 @@ import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/my_books_tab/widgets/continue_reading_header.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/my_books_tab/widgets/library_grid_widget.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/widgets/library_filter_row.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/my_libray_controller.dart';
 
-class MyBooksTab extends GetView<MyLibraryController> {
+class MyBooksTab extends StatelessWidget {
   const MyBooksTab({super.key});
 
   @override

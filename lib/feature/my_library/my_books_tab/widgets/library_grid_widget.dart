@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/my_libray_controller.dart';
 
 class LibraryGrid extends GetView<LibraryController> {
   const LibraryGrid({super.key});
