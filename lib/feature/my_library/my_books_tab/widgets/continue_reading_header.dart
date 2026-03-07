@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class ContinueReadingCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class ContinueReadingCard extends StatelessWidget {
           style: textTheme.osH6.copyWith(color: AppColors.black),
         ),
 
-        const SizedBox(height: 16),
+        SizedBox(height: AppDimens.m),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +48,7 @@ class ContinueReadingCard extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 4),
+                  SizedBox(height: AppDimens.s),
 
                   Text(
                     'Paul Jarvis',
@@ -56,7 +57,7 @@ class ContinueReadingCard extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 8),
+                  SizedBox(height: AppDimens.s),
 
                   Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.',

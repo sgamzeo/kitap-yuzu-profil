@@ -12,6 +12,8 @@ class AppColors {
 
   static const Color tabBarYellow = Color(0xFFE9CF84);
 
+  static const Color bottomsheetBackground = Color(0xFFF9F9F9);
+
   //text
   static const Color tertiary = Color(0xFF6B6B6B);
   static const Color hintText = Color(0xFF999999);

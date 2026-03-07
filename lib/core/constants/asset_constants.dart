@@ -15,6 +15,10 @@ class IconConstants {
   static const String close = 'assets/icons/eye_closed.svg';
   static const String search = 'assets/icons/search.svg';
   static const String save = 'assets/icons/search.svg';
+
+  static const String readerModePage = 'assets/icons/reader_mode_page.svg';
+  static const String readerModeScroll = 'assets/icons/reader_mode_scroll.svg';
+  static const String readerModeSpread = 'assets/icons/reader_mode_spread.svg';
 }
 
 class Mock {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
 
@@ -135,7 +136,7 @@ class _AddBookListState extends State<AddBookList> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            const SizedBox(height: 16),
+            SizedBox(height: AppDimens.m),
 
             /// Liste Adı
             _LabelWithCounter(
@@ -168,7 +169,7 @@ class _AddBookListState extends State<AddBookList> {
               maxLines: 4,
             ),
 
-            const SizedBox(height: 24),
+            SizedBox(height: AppDimens.l),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,7 +222,7 @@ class _AddBookListState extends State<AddBookList> {
               ),
             ),
 
-            const SizedBox(height: 24),
+            SizedBox(height: AppDimens.l),
           ],
         ),
       ),

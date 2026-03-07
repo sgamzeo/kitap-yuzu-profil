@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 class LibraryContent extends StatelessWidget {
@@ -91,7 +92,8 @@ class _LibrarySection extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: AppDimens.s),
+
                   Text(
                     subtitle,
                     style: Theme.of(

@@ -1,43 +1,42 @@
 import 'package:flutter/material.dart';
-
-enum ReaderScrollMode { vertical, horizontal, page }
+import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
 
 class ReaderAppearance {
-  final Color backgroundColor;
-  final ReaderScrollMode scrollMode;
+  final ReaderBackground background;
+  final Color? customBackgroundColor;
+
+  final ReaderDisplayMode displayMode;
   final double zoomLevel;
+  final ReaderFont font;
+  final ReaderFontSize fontSize;
 
   const ReaderAppearance({
-    required this.backgroundColor,
-    required this.scrollMode,
+    required this.background,
+    this.customBackgroundColor,
+    required this.displayMode,
     required this.zoomLevel,
+    required this.font,
+    required this.fontSize,
   });
 
+  Color get backgroundColor => background.resolve(customBackgroundColor);
+
   ReaderAppearance copyWith({
-    Color? backgroundColor,
-    ReaderScrollMode? scrollMode,
+    ReaderBackground? background,
+    Color? customBackgroundColor,
+    ReaderDisplayMode? displayMode,
     double? zoomLevel,
+    ReaderFont? font,
+    ReaderFontSize? fontSize,
   }) {
     return ReaderAppearance(
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      scrollMode: scrollMode ?? this.scrollMode,
+      background: background ?? this.background,
+      customBackgroundColor:
+          customBackgroundColor ?? this.customBackgroundColor,
+      displayMode: displayMode ?? this.displayMode,
       zoomLevel: zoomLevel ?? this.zoomLevel,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'backgroundColor': backgroundColor.value,
-      'scrollMode': scrollMode.index,
-      'zoomLevel': zoomLevel,
-    };
-  }
-
-  factory ReaderAppearance.fromJson(Map<String, dynamic> json) {
-    return ReaderAppearance(
-      backgroundColor: Color(json['backgroundColor']),
-      scrollMode: ReaderScrollMode.values[json['scrollMode']],
-      zoomLevel: (json['zoomLevel'] as num).toDouble(),
+      font: font ?? this.font,
+      fontSize: fontSize ?? this.fontSize,
     );
   }
 }

@@ -34,7 +34,7 @@ class AuthScaffold extends StatelessWidget {
             children: [
               Expanded(child: child),
               if (bottom != null) bottom!,
-              const SizedBox(height: 24),
+              SizedBox(height: AppDimens.l),
             ],
           ),
         ),

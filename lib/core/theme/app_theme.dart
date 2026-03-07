@@ -7,6 +7,9 @@ class AppTheme {
   static ThemeData light = ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
+    hoverColor: Colors.grey.withOpacity(0.05),
 
     scaffoldBackgroundColor: AppColors.backgroundColor,
 
@@ -28,6 +31,24 @@ class AppTheme {
       labelColor: AppColors.primary,
       unselectedLabelColor: const Color(0xFF8A8A8A),
       indicatorSize: TabBarIndicatorSize.tab,
+    ),
+
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColors.bottomsheetBackground,
+      surfaceTintColor: Colors.transparent,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+    ),
+
+    popupMenuTheme: const PopupMenuThemeData(
+      surfaceTintColor: Colors.transparent,
+      color: AppColors.gray100,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
     ),
   );
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
 
 class AddQuotationView extends StatelessWidget {
   const AddQuotationView({super.key});

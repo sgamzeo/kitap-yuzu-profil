@@ -6,6 +6,7 @@ import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 import 'package:kitap_yuzu_profil/feature/auth/auth_base_view.dart';
@@ -31,7 +32,7 @@ class SignUpView extends StatelessWidget {
 
           const CustomTextField(label: "Şifre", obscureText: true),
 
-          const SizedBox(height: 16),
+          SizedBox(height: AppDimens.m),
 
           _AgreeTermsAndConditions(context),
         ],
@@ -131,12 +132,14 @@ class _TermsBottomSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: AppDimens.m),
+
             Text(
               title,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: AppDimens.m),
+
             Expanded(
               child: SingleChildScrollView(
                 child: Text(
@@ -146,7 +149,8 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: AppDimens.m),
+
             SizedBox(
               width: double.infinity,
               child: CustomButton(onPressed: Get.back, text: 'Kapat'),
