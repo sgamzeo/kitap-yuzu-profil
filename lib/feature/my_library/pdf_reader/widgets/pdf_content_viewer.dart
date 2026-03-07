@@ -13,10 +13,57 @@ class PdfContentViewer extends GetView<PdfReaderController> {
     return Obx(() {
       final displayMode = controller.appearance.value.displayMode;
 
-      if (displayMode == ReaderDisplayMode.page) {
-        return const _PageMode();
+      switch (displayMode) {
+        case ReaderDisplayMode.spread:
+          return const _SpreadMode();
+        case ReaderDisplayMode.page:
+          return const _PageMode();
+        case ReaderDisplayMode.scroll:
+          return const _ScrollMode();
       }
-      return const _ContinuousMode();
+    });
+  }
+}
+
+class _SpreadMode extends GetView<PdfReaderController> {
+  const _SpreadMode();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (controller.pages.isEmpty) {
+        return const Center(child: Text('No pages loaded'));
+      }
+
+      // Ensure currentPage is always even (0, 2, 4, ...)
+      final spreadIndex = (controller.currentPage.value ~/ 2) * 2;
+      final leftPageIndex = spreadIndex;
+      final rightPageIndex = spreadIndex + 1;
+
+      return SingleChildScrollView(
+        padding: EdgeInsets.all(AppDimens.pdfContentPadding),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (leftPageIndex < controller.pages.length)
+              Expanded(
+                child: PdfTextRenderer(
+                  text: controller.pages[leftPageIndex],
+                  pageIndex: leftPageIndex,
+                ),
+              ),
+            if (rightPageIndex < controller.pages.length) ...[
+              SizedBox(width: AppDimens.m),
+              Expanded(
+                child: PdfTextRenderer(
+                  text: controller.pages[rightPageIndex],
+                  pageIndex: rightPageIndex,
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
     });
   }
 }
@@ -47,8 +94,8 @@ class _PageMode extends GetView<PdfReaderController> {
   }
 }
 
-class _ContinuousMode extends GetView<PdfReaderController> {
-  const _ContinuousMode();
+class _ScrollMode extends GetView<PdfReaderController> {
+  const _ScrollMode();
 
   @override
   Widget build(BuildContext context) {

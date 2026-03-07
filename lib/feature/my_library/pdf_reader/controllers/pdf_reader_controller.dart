@@ -46,11 +46,27 @@ class PdfReaderController extends GetxController {
   bool get canGoPrevious => hasPages && currentPage.value > 0;
 
   void nextPage() {
-    if (canGoNext) currentPage.value++;
+    if (canGoNext) {
+      final displayMode = appearance.value.displayMode;
+      // In spread mode, jump by 2 pages
+      if (displayMode == ReaderDisplayMode.spread) {
+        currentPage.value = (currentPage.value + 2).clamp(0, pages.length - 1);
+      } else {
+        currentPage.value++;
+      }
+    }
   }
 
   void previousPage() {
-    if (canGoPrevious) currentPage.value--;
+    if (canGoPrevious) {
+      final displayMode = appearance.value.displayMode;
+      // In spread mode, jump by 2 pages
+      if (displayMode == ReaderDisplayMode.spread) {
+        currentPage.value = (currentPage.value - 2).clamp(0, pages.length - 1);
+      } else {
+        currentPage.value--;
+      }
+    }
   }
 
   void goToPage(int index) {
@@ -177,6 +193,7 @@ class PdfReaderController extends GetxController {
   // =============================
 
   final highlights = <HighlightRange>[].obs;
+  final lastUsedHighlightColor = const Color(0xFFFFB6C1).obs; // Default: Pink
 
   void addHighlight(Color color) {
     final selection = currentSelection.value;
@@ -200,6 +217,9 @@ class PdfReaderController extends GetxController {
     highlights.add(
       HighlightRange(page: page, start: start, end: end, color: color),
     );
+
+    // Update last used color
+    lastUsedHighlightColor.value = color;
 
     highlights.refresh();
     clearSelection();

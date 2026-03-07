@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/highlight/highlight_menu.dart';
@@ -16,12 +17,15 @@ class PdfReaderBody extends GetView<PdfReaderController> {
         return const Center(child: CircularProgressIndicator());
       }
 
+      final displayMode = controller.appearance.value.displayMode;
+      final showPagination = displayMode != ReaderDisplayMode.scroll;
+
       return Stack(
         children: [
           Column(
             children: [
               const Expanded(child: PdfContentViewer()),
-              const PdfPaginationBar(),
+              if (showPagination) const PdfPaginationBar(),
             ],
           ),
           _buildHighlightMenu(context),

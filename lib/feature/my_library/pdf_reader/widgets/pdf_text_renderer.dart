@@ -15,6 +15,7 @@ class PdfTextRenderer extends GetView<PdfReaderController> {
     return Obx(() {
       final appearance = controller.appearance.value;
       final highlights = controller.highlights;
+      final selectionColor = controller.lastUsedHighlightColor.value;
 
       return SelectableText.rich(
         TextSpan(
@@ -25,6 +26,7 @@ class PdfTextRenderer extends GetView<PdfReaderController> {
             highlights: highlights,
           ),
         ),
+        selectionColor: selectionColor,
         contextMenuBuilder: (context, editableTextState) {
           // Capture selection position from editableTextState
           _captureSelectionFromState(editableTextState);
