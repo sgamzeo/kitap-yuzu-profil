@@ -25,7 +25,7 @@ class CustomBottomSheet extends StatelessWidget {
         children: [
           Positioned(
             top: 10,
-            left: 10,
+
             child: TextButton(
               onPressed: Get.back,
               child: Text(

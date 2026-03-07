@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 
-enum ReaderBackground { white, paper, sepia, dark, custom }
+enum ReaderBackground { white, gray, sepia, custom }
 
 enum ReaderFont { serif, roboto, courier }
 
@@ -19,14 +20,11 @@ extension ReaderBackgroundExtension on ReaderBackground {
       case ReaderBackground.white:
         return Colors.white;
 
-      case ReaderBackground.paper:
-        return const Color(0xFFF4F1EC);
+      case ReaderBackground.gray:
+        return AppColors.wireframe4;
 
       case ReaderBackground.sepia:
-        return const Color(0xFFEDE7D9);
-
-      case ReaderBackground.dark:
-        return Colors.black;
+        return AppColors.foundation;
 
       case ReaderBackground.custom:
         return customColor ?? Colors.white;

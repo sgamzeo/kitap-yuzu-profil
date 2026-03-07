@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/model/reader_appearance.dart';
 import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
@@ -32,23 +34,53 @@ class PdfTextTestPage extends GetView<PdfReaderController> {
 
       return Scaffold(
         backgroundColor: bgColor,
-        appBar: AppBar(
-          backgroundColor: bgColor,
-          elevation: 0,
-          title: const Text("PDF TEXT TEST"),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.tune,
-                color: bgColor == Colors.black ? Colors.white : Colors.black,
-              ),
-              onPressed: () => _openAppearanceSheet(context),
-            ),
-          ],
-        ),
+        appBar: _buildAppbar(bgColor, context),
         body: _buildBody(appearance),
       );
     });
+  }
+
+  AppBar _buildAppbar(Color bgColor, BuildContext context) {
+    Widget icon(String asset, VoidCallback onTap) {
+      return GestureDetector(
+        onTap: onTap,
+        child: SizedBox(
+          width: 36,
+          height: 36,
+          child: Center(
+            child: SvgPicture.asset(
+              asset,
+              colorFilter: const ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return AppBar(
+      backgroundColor: bgColor,
+      elevation: 0,
+      titleSpacing: 0,
+      automaticallyImplyLeading: false,
+
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon(IconConstants.cancel, () => Get.back()),
+          icon(IconConstants.quotations, () {}),
+        ],
+      ),
+
+      actions: [
+        icon(IconConstants.search2, () {}),
+        icon(IconConstants.save, () {}),
+        icon(IconConstants.options, () => _openAppearanceSheet(context)),
+        const SizedBox(width: 12),
+      ],
+    );
   }
 
   Widget _buildBody(ReaderAppearance appearance) {

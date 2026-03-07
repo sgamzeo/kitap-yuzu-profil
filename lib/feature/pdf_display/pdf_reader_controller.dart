@@ -54,6 +54,13 @@ class PdfReaderController extends GetxController {
     appearance.value = appearance.value.copyWith(background: background);
   }
 
+  void changeCustomBackground(Color color) {
+    appearance.value = appearance.value.copyWith(
+      background: ReaderBackground.custom,
+      customBackgroundColor: color,
+    );
+  }
+
   void changeDisplayMode(ReaderDisplayMode mode) {
     appearance.value = appearance.value.copyWith(displayMode: mode);
   }

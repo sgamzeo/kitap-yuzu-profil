@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_bottomsheet.dart';
@@ -58,6 +59,7 @@ class ReaderAppearanceBottomSheet extends GetView<PdfReaderController> {
                 vertical: true,
                 child: BackgroundSelector(
                   selected: appearance.background,
+                  customColor: appearance.customBackgroundColor,
                   onSelect: controller.changeBackground,
                 ),
               ),
@@ -96,33 +98,48 @@ class BackgroundSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      alignment: WrapAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: ReaderBackground.values.map((bg) {
         final color = bg.resolve(customColor);
-        final isSelected = bg == selected;
 
-        final textColor = color.computeLuminance() < 0.5
-            ? Colors.white
-            : Colors.black;
+        return BackgroundOptionChip(
+          type: bg,
+          color: color,
+          onTap: () async {
+            if (bg == ReaderBackground.custom) {
+              Color temp = customColor ?? Colors.blue;
 
-        return GestureDetector(
-          onTap: () => onSelect(bg),
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: isSelected
-                  ? Border.all(color: AppColors.primary, width: 2)
-                  : null,
-            ),
-            child: CircleAvatar(
-              backgroundColor: color,
-              radius: 18,
-              child: Text("Aa", style: TextStyle(color: textColor)),
-            ),
-          ),
+              final picked = await showDialog<Color>(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text("Renk seç"),
+                  content: BlockPicker(
+                    pickerColor: temp,
+                    onColorChanged: (c) => temp = c,
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("İptal"),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, temp),
+                      child: const Text("Seç"),
+                    ),
+                  ],
+                ),
+              );
+
+              if (picked != null) {
+                final controller = Get.find<PdfReaderController>();
+
+                controller.changeCustomBackground(picked);
+              }
+            } else {
+              onSelect(bg);
+            }
+          },
         );
       }).toList(),
     );
@@ -141,32 +158,13 @@ class DisplayModeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      alignment: WrapAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: ReaderDisplayMode.values.map((mode) {
-        final isSelected = selected == mode;
-
-        return GestureDetector(
+        return DisplayModeChip(
+          selected: selected == mode,
+          iconPath: mode.iconPath,
           onTap: () => onSelect(mode),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: isSelected ? AppColors.primary : Colors.grey.shade300,
-              ),
-              color: isSelected ? AppColors.primary.withOpacity(.1) : null,
-            ),
-            child: SvgPicture.asset(
-              mode.iconPath,
-              width: 22,
-              height: 22,
-              colorFilter: isSelected
-                  ? const ColorFilter.mode(AppColors.primary, BlendMode.srcIn)
-                  : null,
-            ),
-          ),
         );
       }).toList(),
     );
@@ -187,18 +185,21 @@ class ReaderSettingsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(
+      context,
+    ).textTheme.osP.copyWith(color: AppColors.wireframeMetin1);
+
     if (vertical) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.osP.copyWith(color: AppColors.wireframeMetin1),
-          ),
+          Text(title, style: titleStyle),
           const SizedBox(height: 12),
-          Center(child: child),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 29),
+            child: child,
+          ),
         ],
       );
     }
@@ -206,14 +207,143 @@ class ReaderSettingsItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: Theme.of(
-            context,
-          ).textTheme.osP.copyWith(color: AppColors.wireframeMetin1),
-        ),
+        Text(title, style: titleStyle),
         child,
       ],
+    );
+  }
+}
+
+class BackgroundOptionChip extends StatelessWidget {
+  final ReaderBackground type;
+  final Color color;
+  final VoidCallback onTap;
+
+  const BackgroundOptionChip({
+    super.key,
+    required this.type,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = color.computeLuminance() < 0.5
+        ? Colors.white
+        : Colors.black;
+
+    const rainbow = SweepGradient(
+      colors: [
+        Colors.red,
+        Colors.orange,
+        Colors.yellow,
+        Colors.green,
+        Colors.blue,
+        Colors.purple,
+        Colors.red,
+      ],
+    );
+
+    final isWhite = type == ReaderBackground.white;
+    final isCustom = type == ReaderBackground.custom;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 47,
+        height: 46,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            /// rainbow border
+            if (isCustom)
+              Container(
+                width: 47,
+                height: 46,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: rainbow,
+                ),
+              ),
+
+            /// green border
+            if (isWhite)
+              Container(
+                width: 47,
+                height: 46,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.secondaryColorYesil3,
+                    width: 2,
+                  ),
+                ),
+              ),
+
+            /// inner circle
+            Container(
+              width: 43,
+              height: 42,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isCustom ? Colors.white : color,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                "Aa",
+                style: TextStyle(
+                  color: isCustom ? Colors.black : textColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DisplayModeChip extends StatelessWidget {
+  final bool selected;
+  final String iconPath;
+  final VoidCallback onTap;
+
+  const DisplayModeChip({
+    super.key,
+    required this.selected,
+    required this.iconPath,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 71.42,
+        height: 32,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.secondaryColorYesil3 : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: selected
+                ? AppColors.secondaryColorYesil3
+                : const Color(0xFFE5E5E5),
+            width: 1,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: SvgPicture.asset(
+          iconPath,
+          width: 16,
+          height: 16,
+          colorFilter: selected
+              ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+              : null,
+        ),
+      ),
     );
   }
 }
