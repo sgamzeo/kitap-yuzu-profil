@@ -145,15 +145,20 @@ class PdfReaderController extends GetxController {
   // =============================
 
   final currentSelection = Rxn<TextSelection>();
+  final selectionPosition = Rxn<Offset>();
 
   bool get hasSelection => currentSelection.value?.isValid ?? false;
 
-  void setSelection(TextSelection selection) {
+  void setSelection(TextSelection selection, {Offset? position}) {
     currentSelection.value = selection;
+    if (position != null) {
+      selectionPosition.value = position;
+    }
   }
 
   void clearSelection() {
     currentSelection.value = null;
+    selectionPosition.value = null;
   }
 
   String? get selectedText {
@@ -178,13 +183,22 @@ class PdfReaderController extends GetxController {
 
     if (!hasSelection) return;
 
+    final page = currentPage.value;
+    final start = selection!.start;
+    final end = selection.end;
+
+    // Remove any existing highlights that overlap with this selection
+    highlights.removeWhere(
+      (h) =>
+          h.page == page &&
+          ((h.start >= start && h.start < end) || // h starts within selection
+              (h.end > start && h.end <= end) || // h ends within selection
+              (h.start <= start && h.end >= end)),
+    ); // h contains selection
+
+    // Add the new highlight
     highlights.add(
-      HighlightRange(
-        page: currentPage.value,
-        start: selection!.start,
-        end: selection.end,
-        color: color,
-      ),
+      HighlightRange(page: page, start: start, end: end, color: color),
     );
 
     highlights.refresh();

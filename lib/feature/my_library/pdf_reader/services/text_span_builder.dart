@@ -20,18 +20,28 @@ class TextSpanBuilder {
       ..sort((a, b) => a.start.compareTo(b.start));
 
     for (final highlight in pageHighlights) {
-      if (highlight.start > currentIndex) {
+      // Skip if this highlight is before currentIndex (overlapping)
+      if (highlight.end <= currentIndex) {
+        continue;
+      }
+
+      // Add normal text before highlight (if any)
+      final highlightStart = highlight.start > currentIndex
+          ? highlight.start
+          : currentIndex;
+      if (highlightStart > currentIndex) {
         spans.add(
           TextSpan(
-            text: text.safeSubstring(currentIndex, highlight.start),
+            text: text.safeSubstring(currentIndex, highlightStart),
             style: normalStyle,
           ),
         );
       }
 
+      // Add highlighted text
       spans.add(
         TextSpan(
-          text: text.safeSubstring(highlight.start, highlight.end),
+          text: text.safeSubstring(highlightStart, highlight.end),
           style: normalStyle.copyWith(backgroundColor: highlight.color),
         ),
       );
@@ -39,6 +49,7 @@ class TextSpanBuilder {
       currentIndex = highlight.end;
     }
 
+    // Add remaining normal text
     if (currentIndex < text.length) {
       spans.add(
         TextSpan(text: text.safeSubstring(currentIndex), style: normalStyle),

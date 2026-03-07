@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 
 class HighlightMenu extends GetView<PdfReaderController> {
@@ -8,35 +11,114 @@ class HighlightMenu extends GetView<PdfReaderController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: Colors.black.withOpacity(0.85),
+      margin: EdgeInsets.symmetric(horizontal: AppDimens.m),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimens.m,
+        vertical: AppDimens.s,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _dot(Colors.yellow),
-          _dot(Colors.green),
-          _dot(Colors.pink),
-          IconButton(
-            icon: const Icon(Icons.format_quote, color: Colors.white),
-            onPressed: controller.sendToQuotePage,
+          _HighlightColorButton(
+            color: const Color(0xFFFFB6C1),
+            onTap: () => controller.addHighlight(const Color(0xFFFFB6C1)),
           ),
-          IconButton(
-            icon: const Icon(Icons.copy, color: Colors.white),
-            onPressed: controller.copySelectedText,
+          _HighlightColorButton(
+            color: const Color(0xFF87CEEB),
+            onTap: () => controller.addHighlight(const Color(0xFF87CEEB)),
           ),
-          IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
-            onPressed: controller.clearSelection,
+          _HighlightColorButton(
+            color: const Color(0xFFDDA0DD),
+            onTap: () => controller.addHighlight(const Color(0xFFDDA0DD)),
+          ),
+          _HighlightColorButton(
+            color: const Color(0xFFFFDAB9),
+            onTap: () => controller.addHighlight(const Color(0xFFFFDAB9)),
+          ),
+          _MenuIconButton(
+            icon: Icons.image_outlined,
+            onTap: () {
+              // TODO: Implement image capture
+            },
+          ),
+          _MenuIconButton(
+            icon: Icons.translate,
+            onTap: () {
+              // TODO: Implement translate
+            },
+          ),
+          _MenuIconButton(
+            icon: Icons.volume_up_outlined,
+            onTap: () {
+              // TODO: Implement text-to-speech
+            },
+          ),
+          _MenuIconButton(
+            icon: Icons.content_copy_outlined,
+            onTap: controller.copySelectedText,
+          ),
+          _MenuIconButton(
+            icon: Icons.search,
+            onTap: () {
+              // TODO: Implement search
+            },
+          ),
+          _MenuIconButton(
+            icon: Icons.share_outlined,
+            onTap: controller.sendToQuotePage,
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _dot(Color color) {
+class _HighlightColorButton extends StatelessWidget {
+  final Color color;
+  final VoidCallback onTap;
+
+  const _HighlightColorButton({required this.color, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.addHighlight(color),
-      child: CircleAvatar(radius: 10, backgroundColor: color),
+      onTap: onTap,
+      child: Container(
+        width: 28.w,
+        height: 28.w,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+    );
+  }
+}
+
+class _MenuIconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const _MenuIconButton({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 32.w,
+        height: 32.w,
+        decoration: const BoxDecoration(shape: BoxShape.circle),
+        child: Icon(icon, size: 20.sp, color: AppColors.black),
+      ),
     );
   }
 }

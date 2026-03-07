@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/highlight/highlight_menu.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/pdf_content_viewer.dart';
@@ -23,23 +24,30 @@ class PdfReaderBody extends GetView<PdfReaderController> {
               const PdfPaginationBar(),
             ],
           ),
-          _buildHighlightMenu(),
+          _buildHighlightMenu(context),
         ],
       );
     });
   }
 
-  Widget _buildHighlightMenu() {
+  Widget _buildHighlightMenu(BuildContext context) {
     return Obx(() {
       final selection = controller.currentSelection.value;
-      if (selection == null || selection.isCollapsed) {
+      final position = controller.selectionPosition.value;
+
+      if (selection == null || selection.isCollapsed || position == null) {
         return const SizedBox.shrink();
       }
-      return const Positioned(
+
+      // Calculate from bottom of screen with smaller gap
+      final screenHeight = MediaQuery.of(context).size.height;
+      final bottomPosition = screenHeight - position.dy - (AppDimens.s * 8);
+
+      return Positioned(
         left: 0,
         right: 0,
-        bottom: 60,
-        child: HighlightMenu(),
+        bottom: bottomPosition,
+        child: const HighlightMenu(),
       );
     });
   }
