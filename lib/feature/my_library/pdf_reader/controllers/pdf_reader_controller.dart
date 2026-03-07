@@ -4,12 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/model/reader_appearance.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/models/pdf_appearance.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
-
-import '../../core/routes/app_routes.dart';
-import '../../core/helpers/syncfusion_helper.dart';
+import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
+import 'package:kitap_yuzu_profil/core/helpers/syncfusion_helper.dart';
 
 class HighlightRange {
   final int page;

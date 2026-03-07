@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/model/reader_appearance.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/widgets/highlight_menu.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/widgets/reader_appeareance_bottom_sheet.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/models/pdf_appearance.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/highlight/highlight_menu.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/reader_appearance/appearance_bottom_sheet.dart';
 
-class PdfTextTestPage extends GetView<PdfReaderController> {
-  const PdfTextTestPage({super.key});
+class PdfReaderPage extends GetView<PdfReaderController> {
+  const PdfReaderPage({super.key});
 
   @override
   Widget build(BuildContext context) {

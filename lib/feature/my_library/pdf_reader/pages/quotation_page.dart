@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 
-class AddQuotationView extends StatelessWidget {
-  const AddQuotationView({super.key});
+class QuotationPage extends StatelessWidget {
+  const QuotationPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/helpers/syncfusion_helper.dart';
-import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 
-class MyLibraryBinding extends Bindings {
+class PdfReaderBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LibraryController>(() => LibraryController());
     Get.lazyPut<PdfReaderController>(
       () => PdfReaderController(SyncfusionPdfHelper()),
+      fenix: true,
     );
   }
 }

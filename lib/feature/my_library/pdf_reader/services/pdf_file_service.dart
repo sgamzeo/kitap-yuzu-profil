@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:kitap_yuzu_profil/core/constants/app_storage_keys.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/model/imported_pdf.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/models/pdf_file.dart';
 
 class PdfStorage {
   static final _box = GetStorage();

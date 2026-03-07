@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({super.key});

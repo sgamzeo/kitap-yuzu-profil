@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kitap_yuzu_profil/feature/pdf_display/pdf_reader_controller.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 
 class HighlightMenu extends GetView<PdfReaderController> {
   const HighlightMenu({super.key});
