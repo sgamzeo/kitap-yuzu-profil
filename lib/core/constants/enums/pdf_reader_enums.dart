@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitap_yuzu_profil/core/constants/asset_constants.dart';
+import 'package:kitap_yuzu_profil/core/extensions/color_extensions.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 
 enum ReaderBackground { white, gray, sepia, custom }
@@ -32,9 +33,7 @@ extension ReaderBackgroundExtension on ReaderBackground {
   }
 
   Color textColor(Color? customColor) {
-    final bg = resolve(customColor);
-
-    return bg.computeLuminance() < 0.5 ? Colors.white : Colors.black;
+    return resolve(customColor).contrastingTextColor;
   }
 }
 

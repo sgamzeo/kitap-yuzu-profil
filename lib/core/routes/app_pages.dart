@@ -2,6 +2,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/my_library_binding.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/bindings/pdf_reader_binding.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/bindings/quotation_binding.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/pages/pdf_reader_page.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/pages/quotation_page.dart';
 import 'package:kitap_yuzu_profil/feature/onboarding/onboarding_view.dart';
@@ -28,7 +29,11 @@ class AppPages {
       name: AppRoutes.forgotPassword,
       page: () => const ForgotPasswordView(),
     ),
-    GetPage(name: AppRoutes.addQquotation, page: () => const QuotationPage()),
+    GetPage(
+      name: AppRoutes.addQquotation,
+      page: () => const QuotationPage(),
+      binding: QuotationBinding(),
+    ),
     GetPage(
       name: AppRoutes.myLibrary,
       page: () => MyLibraryView(),

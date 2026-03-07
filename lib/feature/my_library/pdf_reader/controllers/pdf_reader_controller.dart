@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
+import 'package:kitap_yuzu_profil/core/extensions/list_extensions.dart';
+import 'package:kitap_yuzu_profil/core/extensions/text_selection_extensions.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/models/pdf_appearance.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/reader_appearance/appearance_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
@@ -37,6 +40,27 @@ class PdfReaderController extends GetxController {
   final pages = <String>[].obs;
   final currentPage = 0.obs;
 
+  bool get hasPages => pages.isNotEmpty;
+  bool get hasMultiplePages => pages.length > 1;
+  bool get canGoNext => hasPages && currentPage.value < pages.length - 1;
+  bool get canGoPrevious => hasPages && currentPage.value > 0;
+
+  void nextPage() {
+    if (canGoNext) currentPage.value++;
+  }
+
+  void previousPage() {
+    if (canGoPrevious) currentPage.value--;
+  }
+
+  void goToPage(int index) {
+    if (pages.isValidIndex(index)) {
+      currentPage.value = index;
+    }
+  }
+
+  String? get currentPageText => pages.getOrNull(currentPage.value);
+
   // =============================
   // APPEARANCE
   // =============================
@@ -49,6 +73,7 @@ class PdfReaderController extends GetxController {
     font: ReaderFont.serif,
     fontSize: ReaderFontSize.medium,
   ).obs;
+
   void changeBackground(ReaderBackground background) {
     appearance.value = appearance.value.copyWith(background: background);
   }
@@ -100,10 +125,16 @@ class PdfReaderController extends GetxController {
         result = await ReadPdfText.getPDFtextPaginated(path);
       }
 
-      pages.assignAll(result);
-      currentPage.value = 0;
+      if (result.isNotEmpty) {
+        pages.assignAll(result);
+        currentPage.value = 0;
+      } else {
+        pages.assignAll(["No content found in PDF"]);
+        currentPage.value = 0;
+      }
     } catch (e) {
       pages.assignAll(["PDF parse error: $e"]);
+      currentPage.value = 0;
     } finally {
       isLoadingText.value = false;
     }
@@ -115,12 +146,25 @@ class PdfReaderController extends GetxController {
 
   final currentSelection = Rxn<TextSelection>();
 
+  bool get hasSelection => currentSelection.value?.isValid ?? false;
+
   void setSelection(TextSelection selection) {
     currentSelection.value = selection;
   }
 
   void clearSelection() {
     currentSelection.value = null;
+  }
+
+  String? get selectedText {
+    final selection = currentSelection.value;
+    final pageText = currentPageText;
+
+    if (selection == null || !selection.isValid || pageText == null) {
+      return null;
+    }
+
+    return selection.getTextFrom(pageText);
   }
 
   // =============================
@@ -132,19 +176,19 @@ class PdfReaderController extends GetxController {
   void addHighlight(Color color) {
     final selection = currentSelection.value;
 
-    if (selection == null || selection.isCollapsed) return;
+    if (!hasSelection) return;
 
     highlights.add(
       HighlightRange(
         page: currentPage.value,
-        start: selection.start,
+        start: selection!.start,
         end: selection.end,
         color: color,
       ),
     );
 
     highlights.refresh();
-    currentSelection.value = null;
+    clearSelection();
   }
 
   // =============================
@@ -152,30 +196,70 @@ class PdfReaderController extends GetxController {
   // =============================
 
   void copySelectedText() {
-    final selection = currentSelection.value;
+    final text = selectedText;
+    if (text == null) return;
 
-    if (selection == null || selection.isCollapsed) return;
-
-    final pageText = pages[currentPage.value];
-
-    final selected = pageText.substring(selection.start, selection.end);
-
-    Clipboard.setData(ClipboardData(text: selected));
-
-    currentSelection.value = null;
+    Clipboard.setData(ClipboardData(text: text));
+    clearSelection();
   }
 
   void sendToQuotePage() {
-    final selection = currentSelection.value;
+    final text = selectedText;
+    if (text == null) return;
 
-    if (selection == null || selection.isCollapsed) return;
+    Get.toNamed(AppRoutes.addQquotation, arguments: {'quote': text});
+    clearSelection();
+  }
 
-    final pageText = pages[currentPage.value];
+  // =============================
+  // UI ACTIONS
+  // =============================
 
-    final selected = pageText.substring(selection.start, selection.end);
+  @override
+  void onClose() {
+    super.onClose();
+    Get.back();
+  }
 
-    Get.toNamed(AppRoutes.addQquotation, arguments: {'quote': selected});
+  void onOpenQuotations() {
+    // TODO: Implement quotations list
+  }
 
-    currentSelection.value = null;
+  void onSearch() {
+    // TODO: Implement search functionality
+  }
+
+  void onSave() {
+    // TODO: Implement save functionality
+  }
+
+  void onOpenAppearance(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => const ReaderAppearanceBottomSheet(),
+    );
+  }
+
+  // =============================
+  // INITIALIZATION
+  // =============================
+
+  bool _isInitialized = false;
+
+  void initializePdf() {
+    if (_isInitialized) return;
+
+    final args = Get.arguments as Map<String, dynamic>?;
+    final path = args?['pdfPath'];
+    final isAsset = args?['isAsset'] ?? false;
+
+    if (path != null) {
+      _isInitialized = true;
+      extractPdfText(path, isAsset: isAsset);
+    }
   }
 }

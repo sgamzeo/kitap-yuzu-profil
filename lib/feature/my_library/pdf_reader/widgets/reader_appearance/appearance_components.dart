@@ -3,6 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
+import 'package:kitap_yuzu_profil/core/extensions/color_extensions.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
@@ -159,9 +160,7 @@ class BackgroundRow extends StatelessWidget {
                     style: TextStyle(
                       color: isCustom
                           ? Colors.black
-                          : (color.computeLuminance() < 0.5
-                                ? Colors.white
-                                : Colors.black),
+                          : color.contrastingTextColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
