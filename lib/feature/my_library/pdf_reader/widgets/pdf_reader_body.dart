@@ -29,9 +29,9 @@ class PdfReaderBody extends GetView<PdfReaderController> {
             children: [
               const Expanded(child: PdfContentViewer()),
               if (showPagination) const PdfPaginationBar(),
+              if (isUIVisible) const PdfReaderOverlay(),
             ],
           ),
-          const PdfReaderOverlay(),
           _buildHighlightMenu(context),
         ],
       );
@@ -49,7 +49,7 @@ class PdfReaderBody extends GetView<PdfReaderController> {
 
       // Calculate from bottom of screen with smaller gap
       final screenHeight = MediaQuery.of(context).size.height;
-      final bottomPosition = screenHeight - position.dy - (AppDimens.s * 8);
+      final bottomPosition = screenHeight - position.dy - (AppDimens.s * 14);
 
       return Positioned(
         left: 0,

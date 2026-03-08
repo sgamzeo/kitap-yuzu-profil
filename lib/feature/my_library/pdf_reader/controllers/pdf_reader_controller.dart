@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kitap_yuzu_profil/core/constants/enums/pdf_reader_enums.dart';
 import 'package:kitap_yuzu_profil/core/extensions/list_extensions.dart';
 import 'package:kitap_yuzu_profil/core/extensions/text_selection_extensions.dart';
+import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/models/pdf_appearance.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/reader_appearance/appearance_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
@@ -193,7 +194,8 @@ class PdfReaderController extends GetxController {
   // =============================
 
   final highlights = <HighlightRange>[].obs;
-  final lastUsedHighlightColor = const Color(0xFFFFB6C1).obs; // Default: Pink
+  final lastUsedHighlightColor =
+      AppColors.foundation2.obs; // Default: foundation2
 
   void addHighlight(Color color) {
     final selection = currentSelection.value;

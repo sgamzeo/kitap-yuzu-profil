@@ -21,7 +21,10 @@ class PdfReaderPage extends GetView<PdfReaderController> {
         body: SafeArea(
           child: GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: controller.toggleUIVisibility,
+            onTap: () {
+              controller.toggleUIVisibility();
+              controller.clearSelection();
+            },
             child: const PdfReaderBody(),
           ),
         ),

@@ -34,20 +34,28 @@ class PdfPaginationBar extends GetView<PdfReaderController> {
       }
 
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: AppDimens.m),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimens.m,
+          vertical: AppDimens.xs,
+        ),
+        height: AppDimens.xxl,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
               onPressed: controller.canGoPrevious
                   ? controller.previousPage
                   : null,
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back, size: 20),
             ),
             Text(pageText),
             IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
               onPressed: controller.canGoNext ? controller.nextPage : null,
-              icon: const Icon(Icons.arrow_forward),
+              icon: const Icon(Icons.arrow_forward, size: 20),
             ),
           ],
         ),

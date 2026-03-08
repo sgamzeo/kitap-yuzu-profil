@@ -31,20 +31,20 @@ class HighlightMenu extends GetView<PdfReaderController> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _HighlightColorButton(
-            color: const Color(0xFFFFB6C1),
-            onTap: () => controller.addHighlight(const Color(0xFFFFB6C1)),
+            color: AppColors.foundation2,
+            onTap: () => controller.addHighlight(AppColors.foundation2),
           ),
           _HighlightColorButton(
-            color: const Color(0xFF87CEEB),
-            onTap: () => controller.addHighlight(const Color(0xFF87CEEB)),
+            color: AppColors.foundationAccent3,
+            onTap: () => controller.addHighlight(AppColors.foundationAccent3),
           ),
           _HighlightColorButton(
-            color: const Color(0xFFDDA0DD),
-            onTap: () => controller.addHighlight(const Color(0xFFDDA0DD)),
+            color: AppColors.foundationPremium4,
+            onTap: () => controller.addHighlight(AppColors.foundationPremium4),
           ),
           _HighlightColorButton(
-            color: const Color(0xFFFFDAB9),
-            onTap: () => controller.addHighlight(const Color(0xFFFFDAB9)),
+            color: AppColors.foundation,
+            onTap: () => controller.addHighlight(AppColors.foundation),
           ),
           _MenuIconButton(
             icon: Icons.image_outlined,
@@ -95,8 +95,8 @@ class _HighlightColorButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 28.w,
-        height: 28.w,
+        width: 22.w,
+        height: 22.h,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
     );

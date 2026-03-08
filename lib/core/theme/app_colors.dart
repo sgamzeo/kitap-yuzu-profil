@@ -25,6 +25,9 @@ class AppColors {
   static const Color secondaryText = Color(0xFF4B4B4B);
 
   static const foundation = Color(0xFFFDF9F0);
+  static const foundation2 = Color(0xFFBDE1DC);
+  static const foundationAccent3 = Color(0xFFDCCFF3);
+  static const foundationPremium4 = Color(0xFFFFE3E0);
 
   //grayscale
   static const black = Color(0xFF000000);
