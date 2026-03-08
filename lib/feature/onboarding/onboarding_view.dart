@@ -79,7 +79,7 @@ class OnboardingView extends StatelessWidget {
                   CustomTextButton(
                     text: 'Misafir olarak Dene',
                     onPressed: () {
-                      Get.offNamed(AppRoutes.myLibrary);
+                      Get.offNamed(AppRoutes.home);
                     },
                   ),
                 ],

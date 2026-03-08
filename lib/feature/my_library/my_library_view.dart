@@ -19,13 +19,9 @@ class MyLibraryView extends GetView<LibraryController> {
         body: Column(
           children: [
             const CustomTabBar(tabs: ['Kitaplarım', 'Listelerim']),
-
             Expanded(
               child: TabBarView(
-                children: [
-                  const MyBooksTab(), // Kitaplarım
-                  const MyListsTab(), // Listelerim
-                ],
+                children: [const MyBooksTab(), const MyListsTab()],
               ),
             ),
           ],

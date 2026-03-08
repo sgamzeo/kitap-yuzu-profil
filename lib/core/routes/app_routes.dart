@@ -9,11 +9,13 @@ class AppRoutes {
 
   static const forgotPassword = '/forgotPassword';
 
+  static const home = '/home';
+  static const profile = '/profile';
+
   static const pdfSelector = '/pdfSelector'; //silinecek
   static const reader = '/reader';
   static const addQquotation = '/addQuotation';
   static const myLibrary = '/library';
 
-  // static const pdfTextReader = '/pdfTextReader';
   static const pdfTextTest = '/pdf-text-test';
 }
