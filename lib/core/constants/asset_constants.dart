@@ -24,6 +24,8 @@ class IconConstants {
   static const String readerModePage = 'assets/icons/reader_mode_page.svg';
   static const String readerModeScroll = 'assets/icons/reader_mode_scroll.svg';
   static const String readerModeSpread = 'assets/icons/reader_mode_spread.svg';
+
+  static const String textAa = 'assets/icons/text_aa.svg';
 }
 
 class Mock {

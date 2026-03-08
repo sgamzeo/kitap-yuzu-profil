@@ -12,6 +12,7 @@ class AppColors {
   static const Color secondaryColorYesil2 = Color(0xFFEEEED4);
   static const Color secondaryColorYesil3 = Color(0xFFE1E2B3);
   static const Color secondaryColorYesil4 = Color(0xFFEEEED4);
+  static const Color secondaryColorYesil5 = Color(0xFFFBFBF4);
 
   static const Color tabBarYellow = Color(0xFFE9CF84);
 

@@ -6,6 +6,7 @@ import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/highlight/highlight_menu.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/pdf_content_viewer.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/pdf_pagination_bar.dart';
+import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/widgets/pdf_reader_overlay.dart';
 
 class PdfReaderBody extends GetView<PdfReaderController> {
   const PdfReaderBody({super.key});
@@ -18,7 +19,9 @@ class PdfReaderBody extends GetView<PdfReaderController> {
       }
 
       final displayMode = controller.appearance.value.displayMode;
-      final showPagination = displayMode != ReaderDisplayMode.scroll;
+      final isUIVisible = controller.isUIVisible.value;
+      final showPagination =
+          isUIVisible && displayMode != ReaderDisplayMode.scroll;
 
       return Stack(
         children: [
@@ -28,6 +31,7 @@ class PdfReaderBody extends GetView<PdfReaderController> {
               if (showPagination) const PdfPaginationBar(),
             ],
           ),
+          const PdfReaderOverlay(),
           _buildHighlightMenu(context),
         ],
       );

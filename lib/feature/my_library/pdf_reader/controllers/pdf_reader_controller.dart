@@ -246,6 +246,16 @@ class PdfReaderController extends GetxController {
   }
 
   // =============================
+  // UI VISIBILITY
+  // =============================
+
+  final isUIVisible = true.obs;
+
+  void toggleUIVisibility() {
+    isUIVisible.value = !isUIVisible.value;
+  }
+
+  // =============================
   // UI ACTIONS
   // =============================
 

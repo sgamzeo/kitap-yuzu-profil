@@ -13,11 +13,18 @@ class PdfReaderPage extends GetView<PdfReaderController> {
 
     return Obx(() {
       final bgColor = controller.appearance.value.backgroundColor;
+      final isUIVisible = controller.isUIVisible.value;
 
       return Scaffold(
         backgroundColor: bgColor,
-        appBar: PdfReaderAppBar(backgroundColor: bgColor),
-        body: const PdfReaderBody(),
+        appBar: isUIVisible ? PdfReaderAppBar(backgroundColor: bgColor) : null,
+        body: SafeArea(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: controller.toggleUIVisibility,
+            child: const PdfReaderBody(),
+          ),
+        ),
       );
     });
   }
