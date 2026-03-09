@@ -55,9 +55,7 @@ class HomePage extends GetView<HomePageController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              onPressed: () {
-                // TODO: Logo action
-              },
+              onPressed: () => Get.toNamed(AppRoutes.myLibrary),
               icon: SvgPicture.asset(
                 IconConstants.homeKibana,
                 width: 24.r,
