@@ -8,6 +8,8 @@ class IconConstants {
   static const String down = 'assets/icons/down.svg';
 
   static const String options = 'assets/icons/options.svg';
+  static const String settings = 'assets/icons/settings.svg';
+  static const String add = 'assets/icons/add.svg';
   static const String export = 'assets/icons/export.svg';
   static const String importBoldDuoTone =
       'assets/icons/import_bold_duotone.svg';
@@ -33,6 +35,7 @@ class IconConstants {
   static const String navbarLibrary = 'assets/icons/navbar_library.svg';
   static const String navbarCommunity = 'assets/icons/navbar_community.svg';
   static const String navbarMessages = 'assets/icons/navbar_messages.svg';
+  static const String communityFilled = 'assets/icons/community_filled.svg';
 
   // Home AppBar icons
   static const String homeKibana = 'assets/icons/home_kibana_temporary.svg';

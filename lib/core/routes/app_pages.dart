@@ -7,6 +7,12 @@ import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/bindings/pdf_rea
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/bindings/quotation_binding.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/pages/pdf_reader_page.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/pages/quotation_page.dart';
+import 'package:kitap_yuzu_profil/feature/notifications/notifications_binding.dart';
+import 'package:kitap_yuzu_profil/feature/notifications/notifications_page.dart';
+import 'package:kitap_yuzu_profil/feature/search/search_binding.dart';
+import 'package:kitap_yuzu_profil/feature/search/search_page.dart';
+import 'package:kitap_yuzu_profil/feature/settings/settings_binding.dart';
+import 'package:kitap_yuzu_profil/feature/settings/settings_page.dart';
 import 'package:kitap_yuzu_profil/feature/onboarding/onboarding_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/forgot_password/forgot_password_view.dart';
 import 'package:kitap_yuzu_profil/feature/auth/reset_password/reset_password_view.dart';
@@ -28,6 +34,21 @@ class AppPages {
       binding: HomePageBinding(),
     ),
     GetPage(name: AppRoutes.profile, page: () => ProfilePage()),
+    GetPage(
+      name: AppRoutes.notifications,
+      page: () => const NotificationsPage(),
+      binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.settings,
+      page: () => const SettingsPage(),
+      binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.search,
+      page: () => const SearchPage(),
+      binding: SearchBinding(),
+    ),
     GetPage(name: AppRoutes.signUp, page: () => const SignUpView()),
     GetPage(name: AppRoutes.signIn, page: () => const SignInView()),
     GetPage(

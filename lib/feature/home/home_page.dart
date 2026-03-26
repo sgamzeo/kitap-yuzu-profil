@@ -10,6 +10,7 @@ import 'package:kitap_yuzu_profil/feature/home/navbar/community/community_view.d
 import 'package:kitap_yuzu_profil/feature/home/navbar/feed/feed_view.dart';
 import 'package:kitap_yuzu_profil/feature/home/navbar/messages/messages_view.dart';
 import 'package:kitap_yuzu_profil/feature/home/navbar/recents/recents_view.dart';
+import 'package:kitap_yuzu_profil/feature/home/widgets/home_drawer.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/my_library_view.dart';
 
 class HomePage extends GetView<HomePageController> {
@@ -26,7 +27,7 @@ class HomePage extends GetView<HomePageController> {
   static final List<Widget> _pages = [
     const FeedView(),
     const RecentsView(),
-    MyLibraryView(),
+    const MyLibraryView(),
     const CommunityView(),
     const MessagesView(),
   ];
@@ -34,75 +35,87 @@ class HomePage extends GetView<HomePageController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final showAppBar = controller.currentIndex.value != 2; // Library index
+      final showAppBar = controller.currentIndex.value == 0; // Only Feed index
 
       return Scaffold(
+        key: controller.scaffoldKey,
         backgroundColor: AppColors.backgroundColor,
         appBar: showAppBar ? _buildAppBar() : null,
+        drawer: const HomeDrawer(),
         body: _pages[controller.currentIndex.value],
-        // bottomNavigationBar: _buildBottomNavBar(), // Temporarily hidden
+        bottomNavigationBar: _buildBottomNavBar(),
       );
     });
   }
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Colors.white,
       elevation: 0,
-      leading: Padding(
-        padding: EdgeInsets.only(left: 8.w),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              onPressed: () => Get.toNamed(AppRoutes.myLibrary),
-              icon: SvgPicture.asset(
-                IconConstants.homeKibana,
-                width: 24.r,
-                height: 24.r,
-              ),
-            ),
-          ],
+      leading: Builder(
+        builder: (context) => IconButton(
+          onPressed: () => Scaffold.of(context).openDrawer(),
+          icon: Icon(Icons.menu, color: AppColors.gray700, size: 28.r),
         ),
       ),
-      leadingWidth: 60.w,
-      title: IconButton(
-        onPressed: () {
-          // TODO: Menu action
-        },
-        icon: SvgPicture.asset(
-          IconConstants.homeMenu,
-          width: 28.r,
-          height: 28.r,
+      titleSpacing: 0,
+      title: Builder(
+        builder: (context) => InkWell(
+          onTap: () {
+            Get.toNamed(AppRoutes.search);
+          },
+          borderRadius: BorderRadius.circular(28.r),
+          child: Container(
+            height: 56.h,
+            decoration: BoxDecoration(
+              color: AppColors.wireframe5,
+              borderRadius: BorderRadius.circular(28.r),
+            ),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Icon(
+                    Icons.search,
+                    color: AppColors.gray500,
+                    size: 24.r,
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Kitaplar içinde ara',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: AppColors.gray500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
       actions: [
         IconButton(
-          onPressed: () {
-            // TODO: Search action
-          },
-          icon: SvgPicture.asset(
-            IconConstants.homeSearch,
-            width: 24.r,
-            height: 24.r,
-          ),
-        ),
-        IconButton(
-          onPressed: () {
-            // TODO: Notifications action
-          },
-          icon: SvgPicture.asset(
-            IconConstants.homeNotifications,
-            width: 24.r,
-            height: 24.r,
+          onPressed: () => Get.toNamed(AppRoutes.notifications),
+          icon: Icon(
+            Icons.notifications_outlined,
+            color: AppColors.gray700,
+            size: 28.r,
           ),
         ),
         IconButton(
           onPressed: () => Get.toNamed(AppRoutes.profile),
-          icon: SvgPicture.asset(
-            IconConstants.homeProfile,
-            width: 24.r,
-            height: 24.r,
+          icon: Icon(
+            Icons.account_circle_outlined,
+            color: AppColors.gray700,
+            size: 28.r,
           ),
         ),
       ],
@@ -116,9 +129,10 @@ class HomePage extends GetView<HomePageController> {
         borderRadius: BorderRadius.circular(40.r),
       ),
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      padding: EdgeInsets.symmetric(vertical: 12.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: List.generate(
           _navIcons.length,
           (index) => _buildNavItem(_navIcons[index], index),
@@ -132,19 +146,55 @@ class HomePage extends GetView<HomePageController> {
       final isSelected = controller.currentIndex.value == index;
       return GestureDetector(
         onTap: () => controller.changeTab(index),
-        child: Container(
-          padding: EdgeInsets.all(12.r),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? AppColors.foundationAccent3
-                : Colors.transparent,
-            shape: BoxShape.circle,
-          ),
-          child: SvgPicture.asset(
-            iconPath,
-            width: 24.r,
-            height: 24.r,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+        child: SizedBox(
+          height: 40.h,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (isSelected)
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    width: 6.r,
+                    height: 6.r,
+                    decoration: BoxDecoration(
+                      color: AppColors.tabBarYellow,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.tabBarYellow.withOpacity(0.5),
+                          blurRadius: 8.r,
+                          spreadRadius: 2.r,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              Center(
+                child: Container(
+                  decoration: isSelected
+                      ? BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.tabBarYellow.withOpacity(0.3),
+                              blurRadius: 12.r,
+                              spreadRadius: 2.r,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: SvgPicture.asset(
+                    iconPath,
+                    width: 24.r,
+                    height: 24.r,
+                    colorFilter: ColorFilter.mode(
+                      isSelected ? AppColors.tabBarYellow : Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );

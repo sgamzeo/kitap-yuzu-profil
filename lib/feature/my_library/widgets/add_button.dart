@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitap_yuzu_profil/core/components/custom_fab.dart';
 import 'package:kitap_yuzu_profil/core/routes/app_routes.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
-import 'package:kitap_yuzu_profil/feature/my_library/library_controller.dart';
 import 'package:kitap_yuzu_profil/feature/my_library/pdf_reader/controllers/pdf_reader_controller.dart';
 
 class AddButton extends StatelessWidget {
@@ -12,7 +12,7 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<PdfReaderController>();
 
-    return FloatingActionButton(
+    return CustomFab(
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -65,7 +65,6 @@ class AddButton extends StatelessWidget {
           },
         );
       },
-      child: const Icon(Icons.add),
     );
   }
 }

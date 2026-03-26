@@ -11,6 +11,9 @@ class AppRoutes {
 
   static const home = '/home';
   static const profile = '/profile';
+  static const notifications = '/notifications';
+  static const settings = '/settings';
+  static const search = '/search';
 
   static const pdfSelector = '/pdfSelector'; //silinecek
   static const reader = '/reader';

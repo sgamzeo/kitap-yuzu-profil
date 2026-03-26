@@ -9,10 +9,15 @@ class AppColors {
 
   static const Color yellow3 = Color(0xFFF6ECCE);
   static const Color green5 = Color(0xFFFBFBF4);
-  static const Color secondaryColorYesil2 = Color(0xFFEEEED4);
+  static const Color secondaryColorYesil2 = Color(0xFFD4D593);
   static const Color secondaryColorYesil3 = Color(0xFFE1E2B3);
   static const Color secondaryColorYesil4 = Color(0xFFEEEED4);
   static const Color secondaryColorYesil5 = Color(0xFFFBFBF4);
+
+  static const Color secondaryColorSari1 = Color(0xFFE9CF84);
+
+  static const Color secondaryColorSari3 = Color(0xFFF6ECCE);
+  static const Color secondaryColorSari4 = Color(0xFFFDFAF3);
 
   static const Color tabBarYellow = Color(0xFFE9CF84);
 

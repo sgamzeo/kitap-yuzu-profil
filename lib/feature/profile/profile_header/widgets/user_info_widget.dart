@@ -13,17 +13,14 @@ class _UserInfoWidget extends StatelessWidget {
             ProfileMock.name,
             style: Theme.of(
               context,
-            ).textTheme.titleLarge?.copyWith(color: AppColors.primary),
+            ).textTheme.osH6.copyWith(color: AppColors.primary),
           ),
 
-          Text(
-            ProfileMock.username,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
+          Text(ProfileMock.username, style: Theme.of(context).textTheme.osP),
           Text(
             ProfileMock.bio,
             textAlign: .center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            style: Theme.of(context).textTheme.osPItalic.copyWith(
               color: AppColors.wireframeMetin2,
               fontWeight: .w200,
               fontStyle: .italic,

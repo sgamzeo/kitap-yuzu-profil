@@ -3,6 +3,7 @@ import 'package:kitap_yuzu_profil/core/components/custom_button.dart';
 import 'package:kitap_yuzu_profil/core/mock/profile_mock.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_colors.dart';
 import 'package:kitap_yuzu_profil/core/theme/app_dimens.dart';
+import 'package:kitap_yuzu_profil/core/theme/theme_extensions.dart';
 
 part './widgets/profile_banner_widget.dart';
 part './widgets/follow_stats_box_widget.dart';
